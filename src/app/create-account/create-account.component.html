@@ -1,0 +1,28 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100 bg-light">
+  <div class="position-absolute top-0 start-0 m-3">
+    <a routerLink="/" class="btn btn-outline-dark mt-3">
+      <i class="fas fa-arrow-left me-1"></i> Revenir à l’accueil
+    </a>
+  </div>
+
+  <div class="card p-4 shadow-sm w-100" style="max-width: 500px;">
+    <h5 class="mb-5 text-center">
+      <i class="bi bi-plus-circle me-2"></i>
+      Ouvrir un nouveau compte
+    </h5>
+
+    <form (ngSubmit)="createAccount()" [formGroup]="accountForm">
+      <div class="mb-4">
+        <label for="label" class="form-label">Label du Compte</label>
+        <input type="text" class="form-control" id="label" formControlName="label" placeholder="Nom du compte">
+      </div>
+
+      <div class="mb-4">
+        <label for="balance" class="form-label">Solde Initial</label>
+        <input type="number" class="form-control" id="balance" formControlName="initialBalance" placeholder="0.00">
+      </div>
+
+      <button type="submit" class="btn btn-dark w-100" [disabled]="accountForm.invalid">Créer le compte</button>
+    </form>
+  </div>
+</div>
