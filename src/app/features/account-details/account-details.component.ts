@@ -1,34 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { AccountsService } from '../../core/services/accounts.service';
+import { Account, AccountService } from '../../core/services/accounts.service';
 
 @Component({
   selector: 'app-account-details',
-  standalone: true,
   templateUrl: './account-details.component.html',
   styleUrls: ['./account-details.component.scss'],
   imports: [CommonModule],
 })
 export class AccountDetailsComponent implements OnInit {
-  accountDetails: any = null;
+  accountDetails: Account | null = null;
 
   constructor(
     private route: ActivatedRoute,
-    private accountsService: AccountsService
+    private accountService: AccountService,
+    private router: Router
+
   ) {}
 
   ngOnInit(): void {
     const accountId = this.route.snapshot.paramMap.get('id');
     if (accountId) {
-      this.fetchAccountDetails(accountId);
+      this.accountService.getAccountById(accountId).subscribe((data) => {
+        this.accountDetails = data;
+      });
     }
   }
-
-  fetchAccountDetails(accountId: string): void {
-    this.accountsService.getAccountDetails(accountId).subscribe({
-      next: (data) => (this.accountDetails = data),
-      error: (err) => console.error('Erreur lors de la récupération des détails du compte', err)
-    });
+  goBack(): void {
+    if (this.accountDetails) {
+      // Sauvegarde l'ID du compte dans localStorage
+      localStorage.setItem('selectedAccountId', this.accountDetails.id);
+    }
+    // Redirige vers la page d'accueil
+    this.router.navigate(['/']);
   }
+  
 }

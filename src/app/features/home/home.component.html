@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light">
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <i class="fas fa-university"></i> BankApp
@@ -10,46 +11,42 @@
     </div>
   </nav>
   
+  <!-- Contenu principal -->
   <div class="container mt-4">
     <div class="row">
-      <!-- Mes Comptes -->
+      <!-- Bloc comptes -->
       <div class="col-md-6 mb-4">
         <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <span>Mes Comptes</span>
-                <select class="form-select form-select-sm w-auto">
-                    <option selected>Choisir un compte</option>
-                </select>
-            </div>
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span>Mes Comptes</span>
+            <select class="form-select form-select-sm w-auto" (change)="handleAccountChange($event)">
+              <option *ngFor="let account of accounts" [value]="account.id" [selected]="account.id === selectedAccount?.id">
+                {{ account.label }}
+              </option>
+            </select>
+          </div>
           <div class="card-body">
-            <ng-container *ngIf="accounts.length > 0; else noAccounts">
-              <div *ngIf="selectedAccount" class="d-flex justify-content-between align-items-center mb-3">
+            <ng-container *ngIf="selectedAccount; else noAccounts">
+              <div class="d-flex justify-content-between align-items-center mb-3">
                 <span>{{ selectedAccount.label }}</span>
-                <span>{{ selectedAccount.balance | currency:'EUR':'symbol' }}</span>
-              </div>
-              <div *ngIf="selectedAccount" class="d-flex justify-content-between align-items-center">
-                <select (change)="handleAccountChange($event)" class="form-select form-select-sm">
-                  <option *ngFor="let account of accounts" [value]="account.id">{{ account.label }}</option>
-                </select>
+                <span>{{ selectedAccount.balance | currency:'EUR' }}</span>
               </div>
             </ng-container>
-            <!-- Template pour aucun compte -->
             <ng-template #noAccounts>
               <p class="text-muted">Aucun compte disponible.</p>
             </ng-template>
           </div>
         </div>
       </div>
-      
   
-      <!-- Actions -->
+      <!-- Bloc actions -->
       <div class="col-md-6 mb-4">
         <div class="card">
           <div class="card-header">
             <button class="btn btn-outline-secondary w-100">+ Ajouter Compte</button>
           </div>
           <div class="card-body">
-            <button class="btn btn-outline-secondary w-100">
+            <button class="btn btn-outline-secondary w-100" (click)="goToAccountDetails()">
               <i class="fas fa-university me-2"></i> Infos Comptes Bancaires
             </button>
           </div>
@@ -60,34 +57,32 @@
       </div>
     </div>
   
-    <!-- Transactions -->
-    <div class="col-12">
+    <!-- Bloc transactions -->
+    <div class="row">
+      <div class="col-12">
         <div class="card">
           <div class="card-header">Transactions</div>
           <div class="card-body">
             <ng-container *ngIf="transactions.length > 0; else noTransactions">
-              <div *ngFor="let transaction of transactions" 
-                   class="d-flex justify-content-between align-items-center mb-3">
+              <div *ngFor="let transaction of transactions" class="d-flex justify-content-between align-items-center mb-3">
                 <div class="d-flex align-items-center">
-                  <!-- Icone transaction -->
-                  <i [class]="transaction.type === 'Dépot' ? 'fas fa-arrow-down transaction-icon text-success me-3' : 'fas fa-arrow-up transaction-icon text-danger me-3'"></i>
-                  <!-- Détails transaction -->
+                  <i [class]="transaction.amount > 0 ? 'fas fa-arrow-down text-success me-3' : 'fas fa-arrow-up text-danger me-3'"></i>
                   <div>
                     <div>{{ transaction.type }}</div>
                     <small class="text-muted">{{ transaction.date | date:'dd MMM yyyy' }}</small>
                   </div>
                 </div>
-                <!-- Montant -->
-                <span [class]="transaction.type === 'Dépot' ? 'text-success' : 'text-danger'">{{ transaction.amount | currency:'EUR':'symbol' }}</span>
+                <span [class]="transaction.amount > 0 ? 'text-success' : 'text-danger'">
+                  {{ transaction.amount | currency:'EUR' }}
+                </span>
               </div>
             </ng-container>
-            <!-- Template pour aucune transaction -->
             <ng-template #noTransactions>
               <p class="text-muted">Aucune transaction disponible.</p>
             </ng-template>
           </div>
         </div>
       </div>
-      
+    </div>
   </div>
   

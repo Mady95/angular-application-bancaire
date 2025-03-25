@@ -1,55 +1,64 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AccountsService } from '../../core/services/accounts.service';
+import { Account, AccountService } from '../../core/services/accounts.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
-  standalone: true,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   imports: [CommonModule],
 })
-export class HomeComponent {
-  accounts: any[] = [];
-  selectedAccount: any = null;
-  transactions: any[] = [];
+export class HomeComponent implements OnInit {
+  accounts: Account[] = [];
+  selectedAccount: Account | null = null;
 
-  constructor(private accountsService: AccountsService) {}
+  transactions = [
+    {
+      type: 'Dépot',
+      amount: 500,
+      date: new Date('2025-01-25')
+    },
+    {
+      type: 'Retrait',
+      amount: -120,
+      date: new Date('2025-01-24')
+    }
+  ];
+
+
+  constructor(
+    private accountService: AccountService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.fetchAccounts();
-  }
+    // Récupérer l'ID du compte depuis localStorage
+    const savedAccountId = localStorage.getItem('selectedAccountId');
+    
+    // Charger tous les comptes
+    this.accountService.getAccounts().subscribe((data) => {
+      this.accounts = data;
 
-  fetchAccounts(): void {
-    this.accountsService.getAccounts().subscribe({
-      next: (data) => {
-        this.accounts = data;
-        if (this.accounts.length > 0) {
-          this.selectAccount(this.accounts[0].id); // Sélectionne le premier compte par défaut
+      if (savedAccountId) {
+        // Si un accountId est trouvé dans localStorage, charge le compte correspondant
+        this.selectedAccount = this.accounts.find(account => account.id === savedAccountId) || null;
+      } else {
+        // Si aucun compte n'est trouvé dans localStorage, on prend le premier compte par défaut
+        if (data.length > 0) {
+          this.selectedAccount = data[0]; // Le premier compte par défaut
         }
-      },
-      error: (err) => console.error('Erreur lors de la récupération des comptes', err)
+      }
     });
   }
-
-  selectAccount(accountId: string): void {
-    const account = this.accounts.find(acc => acc.id === accountId);
-    if (account) {
-      this.selectedAccount = account;
-      this.fetchTransactions(account.id);
-    }
-  }
-
-  fetchTransactions(accountId: string): void {
-    this.accountsService.getAccountTransactions(accountId).subscribe({
-      next: (data) => (this.transactions = data),
-      error: (err) => console.error('Erreur lors de la récupération des transactions', err)
-    });
-  }
-
   handleAccountChange(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    const accountId = selectElement.value;
-    this.selectAccount(accountId);
+    const selectedId = (event.target as HTMLSelectElement).value;
+    this.selectedAccount = this.accounts.find(acc => acc.id === selectedId) || null;
+  }
+
+  goToAccountDetails(): void {
+    if (this.selectedAccount) {
+      this.router.navigate(['/account', this.selectedAccount.id]);
+    }
   }
 }
