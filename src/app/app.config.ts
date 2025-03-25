@@ -1,8 +1,19 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import {ApplicationConfig, importProvidersFrom, provideZoneChangeDetection} from '@angular/core';
+import {provideRouter, Routes} from '@angular/router';
+import {HttpClientModule, provideHttpClient} from '@angular/common/http';
+import {CreateAccountComponent} from './create-account/create-account.component';
+import {ProfileComponent} from './profile/profile.component';
 
-import { routes } from './app.routes';
+const routes: Routes = [
+  { path: 'create-account', component: CreateAccountComponent },
+  { path: 'profile', component: ProfileComponent }
+];
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes)]
+  providers: [
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideHttpClient(),
+    importProvidersFrom(HttpClientModule)
+  ]
 };
