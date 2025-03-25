@@ -1,0 +1,43 @@
+<div class="container">
+    <!-- Détails de la transaction -->
+     <div class="transaction-details-card">
+         <h5 class="back-link" (click)="goToTransaction()">&larr; Détails de la Transaction</h5>
+ 
+         <div class="d-flex justify-content-between align-items-center mb-3">
+             <span class="text-muted">ID Transaction</span>
+             <span class="fw-bold">#{{ transaction?.id }}</span>
+         </div>
+ 
+         <div class="d-flex align-items-center mb-3">
+             <img src="user-avatar.png" alt="Avatar" class="user-avatar">
+             <div class="ms-2">
+                 <p class="mb-0 fw-bold">{{ transaction?.emitterAccountId }}</p>
+                 <span class="text-muted">Émetteur</span>
+             </div>
+         </div>
+ 
+         <div class="mb-3">
+             <span class="text-muted">Date</span>
+             <p class="fw-bold mb-0">{{ transaction?.date | date:'dd MMM yyyy, HH:mm' }}</p>
+         </div>
+ 
+         <div class="mb-3">
+             <span class="text-muted">Description</span>
+             <p class="fw-bold mb-0">{{ transaction?.description }}</p>
+         </div>
+ 
+         <div class="mb-3">
+             <span class="text-muted">Montant</span>
+             <p class="fw-bold text-success mb-0">€{{ transaction?.amount }}</p>
+         </div>
+ 
+         <div class="mb-3">
+             <span class="text-muted">Statut</span>
+             <span class="status-badge">{{ status }}</span>
+         </div>
+ 
+         <div *ngIf="status === 'En attente'" class="mb-3">
+             <button class="btn btn-danger" (click)="cancelTransaction()">Annuler la Transaction</button>
+         </div>
+     </div>
+ </div>
