@@ -19,6 +19,12 @@ export class AccountService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
+  createAccount(data: { label: string; initialBalance: number }): Observable<any> {
+    return this.http.post(`${this.apiUrl}`, data, {
+      headers: this.authService.getAuthHeaders()
+    });
+  }
+
   getAccounts(): Observable<Account[]> {
     return this.http.get<Account[]>(this.apiUrl, {
       headers: this.authService.getAuthHeaders()
@@ -30,7 +36,7 @@ export class AccountService {
       headers: this.authService.getAuthHeaders()
     });
   }
-  
+
 }
 
 
