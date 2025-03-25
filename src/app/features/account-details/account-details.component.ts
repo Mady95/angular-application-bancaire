@@ -24,9 +24,21 @@ export class AccountDetailsComponent implements OnInit {
     if (accountId) {
       this.accountService.getAccountById(accountId).subscribe((data) => {
         this.accountDetails = data;
+  
+        console.log('Account Details:', this.accountDetails);  // Affiche les détails du compte
+  
+        // Vérifie si creationDate est bien une chaîne
+        if (this.accountDetails && this.accountDetails.openAt ) {
+          console.log('Raw creationDate:', this.accountDetails.openAt );  // Affiche la date brute
+          this.accountDetails.openAt  = new Date(this.accountDetails.openAt );
+          console.log('Converted creationDate:', this.accountDetails.openAt );  // Affiche la date convertie en Date
+        }
       });
     }
   }
+  
+  
+  
   goBack(): void {
     if (this.accountDetails) {
       // Sauvegarde l'ID du compte dans localStorage
