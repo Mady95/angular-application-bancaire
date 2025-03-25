@@ -5,7 +5,7 @@ import { AllTransactionsComponent } from './all-transactions/all-transactions.co
 
 export const routes: Routes = [
     { path : '', redirectTo: '/transaction', pathMatch: 'full' },
-    { path: 'transaction', component: TransactionComponent },
+    { path: 'transaction/:id', component: TransactionComponent },
     { path: 'all-transactions', component: AllTransactionsComponent },
-    { path: 'details-transaction/', component: DetailsTransactionComponent }  
+    { path: 'details-transaction/:id', component: DetailsTransactionComponent }  
 ];
