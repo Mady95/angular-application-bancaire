@@ -23,7 +23,7 @@
       <div class="card-body" *ngIf="accountDetails; else noData">
         <p><strong>ID :</strong> {{ accountDetails.id }}</p>
         <p><strong>Label :</strong> {{ accountDetails.label }}</p>
-        <p><strong>Date de Création :</strong> {{ accountDetails.creationDate | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Date de Création :</strong> {{ accountDetails.openAt  | date:'dd/MM/yyyy' }}</p>
         <p><strong>Montant :</strong> {{ accountDetails.balance | currency:'EUR' }}</p>
       </div>
       <ng-template #noData>

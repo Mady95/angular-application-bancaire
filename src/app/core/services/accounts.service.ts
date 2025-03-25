@@ -9,7 +9,7 @@ export interface Account {
   label: string;
   balance: number;
   maskedNumber: string;
-  creationDate: string;
+  openAt : Date;
 }
 
 
