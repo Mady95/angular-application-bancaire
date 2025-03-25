@@ -7,13 +7,5 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class AccountService {
-  private apiUrl = 'https://coding-bank.fly.dev';
 
-  constructor(private http: HttpClient, private authService: AuthService) {}
-
-  createAccount(data: { label: string; initialBalance: number }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/accounts`, data, {
-      headers: this.authService.getAuthHeaders()
-    });
-  }
 }

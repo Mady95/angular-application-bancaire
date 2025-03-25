@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     // Récupérer l'ID du compte depuis localStorage
     const savedAccountId = localStorage.getItem('selectedAccountId');
-    
+
     // Charger tous les comptes
     this.accountService.getAccounts().subscribe((data) => {
       this.accounts = data;
@@ -60,5 +60,9 @@ export class HomeComponent implements OnInit {
     if (this.selectedAccount) {
       this.router.navigate(['/account', this.selectedAccount.id]);
     }
+  }
+
+  goToAddAccount() {
+    this.router.navigate(['/create-account']);
   }
 }
