@@ -1,0 +1,24 @@
+<div class="container mt-5">
+    <h2>Toutes les Transactions</h2>
+    <ul class="list-group">
+      <li *ngFor="let transaction of paginatedTransactions" class="list-group-item d-flex justify-content-between align-items-center">
+        <div class="avatar">
+          {{ getInitials(transaction.emitterAccountId === myAccountId ? transaction.receiverAccountId : transaction.emitterAccountId) }}
+        </div>
+        <div class="transaction-details">
+          <div>
+            <strong>{{ transaction.emitterAccountId === myAccountId ? 'To: ' + transaction.receiverAccountId : 'From: ' + transaction.emitterAccountId }}</strong>
+          </div>
+          <div>{{ transaction.description }}</div>
+          <div>{{ formatDate(transaction.date) }}</div>
+        </div>
+        <div class="transaction-amount" [ngClass]="{'text-danger': transaction.emitterAccountId === myAccountId, 'text-success': transaction.receiverAccountId === myAccountId}">
+          {{ transaction.emitterAccountId === myAccountId ? '-' : '+' }}{{ transaction.amount | currency }}
+        </div>
+      </li>
+    </ul>
+    <div class="pagination mt-3">
+      <button class="btn btn-primary" (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+      <button class="btn btn-primary" (click)="nextPage()" [disabled]="(currentPage * pageSize) >= transactions.length">Next</button>
+    </div>
+  </div>
