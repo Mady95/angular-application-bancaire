@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TransactionService } from '../services/transaction.service';
 import {ToastService} from '../core/services/toast.service';
+import { AccountService } from '../core/services/accounts.service';
 
 @Component({
   selector: 'app-transaction',
@@ -18,24 +19,38 @@ export class TransactionComponent {
   amount!: number;
   description!: string;
   amountExceedsBalance: boolean = false;
-  accountBalance: number = 2450.85;
+  accountBalance: number = 0; 
 
   constructor(
     private transactionService: TransactionService,
     private router: Router,
-    private route: ActivatedRoute,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private accountService: AccountService,
+    private route: ActivatedRoute
   ) {}
-
-  checkAmount() {
-    this.amountExceedsBalance = this.amount > this.accountBalance;
-  }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.emitterAccountId = params.get('id') || 'defaultAccountId';
       console.log(this.emitterAccountId);
+      this.loadAccountDetails();
     });
+  }
+
+  loadAccountDetails(): void {
+    this.accountService.getAccountById(this.emitterAccountId).subscribe({
+      next: account => {
+        this.accountBalance = account.balance; // Assurez-vous que l'API retourne un champ `balance`
+        console.log('Account balance:', this.accountBalance);
+      },
+      error: error => {
+        console.error('Erreur lors de la récupération des détails du compte :', error);
+      }
+    });
+  }
+
+  checkAmount() {
+    this.amountExceedsBalance = this.amount > this.accountBalance;
   }
 
   onSubmit() {

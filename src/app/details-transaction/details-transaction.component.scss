@@ -1,40 +1,138 @@
-.transaction-details-card {
-    max-width: 500px;
-    margin: auto;
-    padding: 25px;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-}
 
-/* Bouton de retour */
-.back-link {
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+  
+  .transaction-details-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 24px;
+    width: 600px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  .back-link {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 500;
+    color: #2c3e50;
     cursor: pointer;
-    color: #333;
-    margin-bottom: 15px;
-    display: inline-block;
-}
-
-.back-link:hover {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .back-link:hover {
     text-decoration: underline;
-}
-
-/* Avatar utilisateur */
-.user-avatar {
+  }
+  
+  .transaction-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .emitter-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  
+  .emitter-name {
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .emitter-label {
+    color: #6c757d;
+    font-size: 14px;
+    margin: 0;
+  }
+  
+ 
+  .avatar {
     width: 40px;
     height: 40px;
-    border-radius: 50%;
-}
-
-/* Badge du statut */
-.status-badge {
-    display: inline-block;
-    padding: 5px 12px;
-    background-color: #e0f3e0;
-    color: #0f5132;
+    font-size: 14px;
     font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #6c757d;
+    color: white;
+  }
+  
+
+  .transaction-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 16px;
+  }
+  
+  .text-muted {
+    color: #6c757d;
+    font-size: 14px;
+  }
+  
+  .transaction-value {
+    font-weight: 600;
+    text-align: right;
+  }
+  
+
+  .text-success {
+    color: #28a745 !important;
+    font-size: 18px;
+  }
+  
+
+  .status-badge {
+    padding: 6px 12px;
     border-radius: 15px;
     font-size: 14px;
-}
+    font-weight: bold;
+    display: inline-block;
+    background-color: #28a745;
+    color: #ffffff;
+  }
+  
+
+  @media (max-width: 600px) {
+    .transaction-details-card {
+      width: 100%;
+      padding: 16px;
+    }
+  }
+
+
+.transaction-details-card div:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1); 
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
+  
+
+  .transaction-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    padding-top: 8px;
+  }
+  
+  @media (max-width: 768px) {
+    .transaction-details-card {
+      width: 95%;
+      padding: 20px;
+    }
+  }
+  
