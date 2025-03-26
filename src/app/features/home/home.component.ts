@@ -13,18 +13,7 @@ export class HomeComponent implements OnInit {
   accounts: Account[] = [];
   selectedAccount: Account | null = null;
 
-  transactions = [
-    {
-      type: 'Dépot',
-      amount: 500,
-      date: new Date('2025-01-25')
-    },
-    {
-      type: 'Retrait',
-      amount: -120,
-      date: new Date('2025-01-24')
-    }
-  ];
+  transactions: any[] = [];
 
 
   constructor(
@@ -33,27 +22,30 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Récupérer l'ID du compte depuis localStorage
     const savedAccountId = localStorage.getItem('selectedAccountId');
 
-    // Charger tous les comptes
     this.accountService.getAccounts().subscribe((data) => {
       this.accounts = data;
 
       if (savedAccountId) {
-        // Si un accountId est trouvé dans localStorage, charge le compte correspondant
         this.selectedAccount = this.accounts.find(account => account.id === savedAccountId) || null;
-      } else {
-        // Si aucun compte n'est trouvé dans localStorage, on prend le premier compte par défaut
-        if (data.length > 0) {
-          this.selectedAccount = data[0]; // Le premier compte par défaut
-        }
+      } else if (data.length > 0) {
+        this.selectedAccount = data[0];
+      }
+
+      if (this.selectedAccount) {
+        this.loadTransactions(this.selectedAccount.id);
       }
     });
   }
   handleAccountChange(event: Event): void {
     const selectedId = (event.target as HTMLSelectElement).value;
     this.selectedAccount = this.accounts.find(acc => acc.id === selectedId) || null;
+
+    if (this.selectedAccount) {
+      localStorage.setItem('selectedAccountId', this.selectedAccount.id);
+      this.loadTransactions(this.selectedAccount.id);
+    }
   }
 
   goToAccountDetails(): void {
@@ -65,4 +57,25 @@ export class HomeComponent implements OnInit {
   goToAddAccount() {
     this.router.navigate(['/create-account']);
   }
+
+  loadTransactions(accountId: string): void {
+    this.accountService.getTransactionsByAccountId(accountId).subscribe(transactions => {
+      this.transactions = transactions
+        .sort((a, b) => new Date(b.emittedAt).getTime() - new Date(a.emittedAt).getTime()) // ordre décroissant
+        .slice(0, 5);
+    });
+  }
+
+  hasTransactions(): boolean {
+    return Array.isArray(this.transactions) && this.transactions.length > 0;
+  }
+
+  getInitials(fullName: string): string {
+    return fullName
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase();
+  }
+
 }
