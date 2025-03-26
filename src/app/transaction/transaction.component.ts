@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { TransactionService } from '../service/transaction.service';
+import { TransactionService } from '../services/transaction.service';
 
 @Component({
   selector: 'app-transaction',
