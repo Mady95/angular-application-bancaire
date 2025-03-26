@@ -13,8 +13,7 @@ import { CommonModule } from '@angular/common'; // Import CommonModule pour util
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  clientCode: string = '';
-  username: string = '';
+  name: string = '';  // Nom d'utilisateur
   password: string = '';
   confirmPassword: string = '';
 
@@ -64,10 +63,15 @@ export class RegisterComponent {
       return;
     }
 
+    // Validation supplémentaire pour le champ `name` (nom d'utilisateur)
+    if (!this.name) {
+      alert("Le nom d'utilisateur ne peut pas être vide.");
+      return;
+    }
+
     const registrationData = {
-      clientCode: this.clientCode,
-      username: this.username,
-      password: this.password
+      name: this.name,   // Utiliser 'name' comme attendu par l'API
+      password: this.password // 'password' reste inchangé
     };
 
     // Appeler la méthode register() du service AuthService
@@ -78,7 +82,7 @@ export class RegisterComponent {
       },
       (error: HttpErrorResponse) => {  // Typage explicite de 'error'
         console.error('Erreur lors de l\'inscription', error);
-        alert('Une erreur est survenue lors de l\'inscription.');
+        alert(`Une erreur est survenue lors de l'inscription : ${error.error.message}`);
       }
     );
   }
