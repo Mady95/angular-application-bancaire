@@ -9,7 +9,6 @@ import {RouterLink} from '@angular/router';
   selector: 'app-create-account',
   imports: [
     ReactiveFormsModule,
-    RouterLink
   ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss'
