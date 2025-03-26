@@ -1,19 +1,20 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { Transaction } from '../model/transaction';
 import { TransactionService } from '../service/transaction.service';
 
 @Component({
   selector: 'app-details-transaction',
   standalone : true,
-  imports: [BrowserModule],
+  imports: [CommonModule],
   providers: [DatePipe],
   templateUrl: './details-transaction.component.html',
   styleUrl: './details-transaction.component.scss'
 })
 export class DetailsTransactionComponent implements OnInit {
+  emitterAccountId: string = '';
   transaction: Transaction | undefined;
   transactionId: string = '';
   status: string = 'En attente';
@@ -49,7 +50,7 @@ export class DetailsTransactionComponent implements OnInit {
     if (this.transaction) {
       this.transactionService.cancelTransaction(this.transaction.id).subscribe(() => {
         window.alert('Transaction annulée avec succès');
-        this.router.navigate(['/all-transactions']);
+        this.router.navigate(['/accounts', this.emitterAccountId, 'transactions']);
       });
     }
   }

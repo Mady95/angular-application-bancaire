@@ -1,43 +1,59 @@
 import { Injectable } from '@angular/core';
-import { Transaction } from '../model/transaction';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { Transaction } from '../model/transaction';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TransactionService {
-
   private apiUrl = 'https://coding-bank.fly.dev/transactions';
   private apiUrl2 = 'https://coding-bank.fly.dev/accounts';
-  transactions: Transaction[] = [];
 
-  constructor(private http: HttpClient, private authService: AuthService) { }
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
-  createTransaction(data: {emitterAccountId: string, receiverAccountId: string, amount: number, description: string}): Observable<any> {
-    // const transaction = new Transaction(id, emitterAccountId, receiverAccountId, amount, description, date);
-    const headers = this.authService.getAuthHeaders();
-    return this.http.post(`${this.apiUrl}/emit`, data, { headers });
+  private getHeaders(): HttpHeaders {
+    return this.authService.getAuthHeaders();
+  }
+
+  createTransaction(data: {
+    emitterAccountId: string;
+    receiverAccountId: string;
+    amount: number;
+    description: string;
+  }): Observable<any> {
+    console.log('Payload:', data);
+    return this.http.post(`${this.apiUrl}/emit`, data, { headers: this.getHeaders() }).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getTransactionById(transactionId: string): Observable<Transaction> {
-    const headers = this.authService.getAuthHeaders();
-    return this.http.get<Transaction>(`${this.apiUrl}/${transactionId}`, { headers });
+    return this.http.get<Transaction>(`${this.apiUrl}/${transactionId}`, { headers: this.getHeaders() }).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getAllTransactions(accountId: string): Observable<Transaction[]> {
-    const headers = this.authService.getAuthHeaders();
-    return this.http.get<Transaction[]>(`${this.apiUrl2}/${accountId}/transactions`, { headers });
+    return this.http.get<Transaction[]>(`${this.apiUrl2}/${accountId}/transactions`, { headers: this.getHeaders() }).pipe(
+      catchError(this.handleError)
+    );
   }
 
-  cancelTransaction(transactionId: number): Observable<void> {
-    const transactionIndex = this.transactions.findIndex((t: { id: number; }) => t.id === transactionId);
-    if (transactionIndex !== -1) {
-      this.transactions.splice(transactionIndex, 1); // Remove the transaction from the local storage
-      return of(void 0); // Simulate an Observable<void>
-    } else {
-      return of(void 0); // Simulate an Observable<void> for a non-existent transaction
+  cancelTransaction(transactionId: number): Observable<Transaction> {
+    return this.http.post<Transaction>(`${this.apiUrl}/${transactionId}/cancel`, {}, { headers: this.getHeaders() }).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  private handleError<T>(error: any): Observable<never> {
+    console.error('Erreur API:', error);
+    let errorMessage = 'Une erreur est survenue, veuillez réessayer.';
+    if (error.error && error.error.message) {
+      errorMessage = error.error.message;
     }
+    return throwError(() => new Error(errorMessage));
   }
 }

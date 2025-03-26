@@ -25,7 +25,7 @@ export class AllTransactionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
-    this.myAccountId = 'b2edc4d9-5a7c-4adf-822a-7d48bef17df5'; // Remplacez 'defaultAccountId' par une valeur par défaut valide
+    this.myAccountId = '480dfa95-bdfd-4b08-aa16-743251cd1b0c'; // Remplacez 'defaultAccountId' par une valeur par défaut valide
     console.log(this.myAccountId);
 
     if (this.myAccountId) {

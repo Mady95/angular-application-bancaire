@@ -24,6 +24,7 @@ export class TransactionComponent {
     private router: Router,
     private route: ActivatedRoute
   ) {}
+
   checkAmount() {
     this.amountExceedsBalance = this.amount > this.accountBalance;
   }
@@ -31,7 +32,7 @@ export class TransactionComponent {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.emitterAccountId = params.get('id') || 'defaultAccountId';
-      console.log(this.emitterAccountId)
+      console.log(this.emitterAccountId);
     });
   }
 
@@ -48,13 +49,14 @@ export class TransactionComponent {
         .subscribe({
           next: response => {
             window.alert('Transaction réalisée avec succès');
-            this.router.navigate(['/all-transactions']);
+            this.router.navigate(['/accounts', this.emitterAccountId, 'transactions']);
             this.receiverAccountId = '';
             this.amount = 0;
             this.description = '';
           },
           error: error => {
             window.alert('Erreur lors de la réalisation de la transaction');
+            console.error(error);
           }
         });
     }
