@@ -1,6 +1,4 @@
-
-
-  <!-- Contenu principal -->
+<!-- Contenu principal -->
   <div class="container mt-4">
     <div class="row">
       <!-- Bloc comptes -->
@@ -40,7 +38,7 @@
             </button>
           </div>
           <div class="card-header">
-            <button class="btn btn-dark w-100">+ Nouvelle Transaction</button>
+            <button class="btn btn-dark w-100" (click)="goToTransaction()">+ Nouvelle Transaction</button>
           </div>
         </div>
       </div>
@@ -52,7 +50,7 @@
           <div class="card-header">Transactions</div>
           <div class="card-body">
             <ng-container *ngIf="hasTransactions(); else noTransactions">
-              <div *ngFor="let transaction of transactions" class="d-flex justify-content-between align-items-center mb-4">
+              <div (click)="goToDetailsTransaction(transaction.id)" *ngFor="let transaction of transactions" class="d-flex justify-content-between align-items-center mb-4">
                 <div class="d-flex align-items-center gap-3">
                   <!-- Avatar avec initiales -->
                   <div class="avatar bg-secondary text-white rounded-circle d-flex justify-content-center align-items-center"

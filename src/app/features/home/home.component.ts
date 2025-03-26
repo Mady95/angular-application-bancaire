@@ -78,4 +78,16 @@ export class HomeComponent implements OnInit {
       .toUpperCase();
   }
 
+  goToTransaction(): void {
+    if (this.selectedAccount?.id) {
+      this.router.navigate(['/transaction', this.selectedAccount.id]);
+    } else {
+      window.alert('Veuillez sélectionner un compte avant de créer une transaction.');
+    }
+  }
+
+  goToDetailsTransaction(transactionId: string): void {
+    this.router.navigate(['/details-transaction', transactionId]);
+  }
+
 }

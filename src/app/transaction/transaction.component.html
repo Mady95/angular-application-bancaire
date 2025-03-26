@@ -1,6 +1,6 @@
 <div class="container">
     <div class="transaction-card">
-        <h5 class="back-link">&larr; Transaction</h5>
+        <h5 class="back-link" (click)="goToHome()">&larr; Transaction</h5>
 
         <div class="alert alert-secondary info-alert">
             <strong>💡 Le montant doit être inférieur à votre solde actuel</strong> (€2,450.85)
@@ -13,7 +13,7 @@
             </div>
             <div class="mb-3">
                 <label for="amount" class="form-label">Montant</label>
-                <input type="number" class="form-control" id="amount" required [(ngModel)]="amount" name="amount" (input)="checkAmount()" placeholder="0.00">
+                <input type="number" class="form-control" id="amount" required [(ngModel)]="amount" name="amount" (input)="checkAmount()"  placeholder="0.00">
             </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>

@@ -1,20 +1,23 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
+import { Account, AccountService } from '../core/services/accounts.service';
 import { Transaction } from '../model/transaction';
-import { TransactionService } from '../service/transaction.service';
+import { TransactionService } from '../services/transaction.service';
 
 @Component({
   selector: 'app-details-transaction',
   standalone : true,
-  imports: [BrowserModule],
+  imports: [CommonModule],
   providers: [DatePipe],
   templateUrl: './details-transaction.component.html',
   styleUrl: './details-transaction.component.scss'
 })
 export class DetailsTransactionComponent implements OnInit {
-  transaction: Transaction | undefined;
+  transaction: any;
+  selectedAccount: Account | null = null;
+  transactions: any[] = [];
   transactionId: string = '';
   status: string = 'En attente';
 
@@ -36,12 +39,32 @@ export class DetailsTransactionComponent implements OnInit {
     });
   }
 
+  getInitials(fullName: string): string {
+    return fullName
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase();
+  }
+
   checkStatus(): void {
     if (this.transaction) {
       const now = new Date();
       const transactionDate = new Date(this.transaction.date);
-      const diffInHours = (now.getTime() - transactionDate.getTime()) / 1000 / 60 / 60;
-      this.status = diffInHours >= 5 ? 'Validé' : 'En attente';
+      const diffInMilliseconds = now.getTime() - transactionDate.getTime();
+      const threeSecondsInMilliseconds = 3000;
+  
+      if (diffInMilliseconds >= threeSecondsInMilliseconds) {
+        this.status = 'Validé';
+      } else {
+        this.status = 'En attente';
+        const remainingTime = threeSecondsInMilliseconds - diffInMilliseconds;
+  
+        // Passe automatiquement à "Validé" après le temps restant
+        setTimeout(() => {
+          this.status = 'Validé';
+        }, remainingTime);
+      }
     }
   }
 
@@ -49,12 +72,12 @@ export class DetailsTransactionComponent implements OnInit {
     if (this.transaction) {
       this.transactionService.cancelTransaction(this.transaction.id).subscribe(() => {
         window.alert('Transaction annulée avec succès');
-        this.router.navigate(['/all-transactions']);
+        this.router.navigate(['/home']);
       });
     }
   }
 
-  goToTransaction(): void {
-    this.router.navigate(['/transaction']);
+  goToHome(): void {
+    this.router.navigate(['/home']);
   }
 }
