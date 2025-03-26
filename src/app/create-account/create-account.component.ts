@@ -4,13 +4,13 @@ import {HttpClient} from '@angular/common/http';
 import {AccountService} from '../core/services/accounts.service';
 import {AuthService} from '../services/auth.service';
 import {Router, RouterLink} from '@angular/router';
-import {NgClass} from "@angular/common";
+import {CommonModule, NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-create-account',
   imports: [
     ReactiveFormsModule,
-    RouterLink,
+    CommonModule,
     NgClass
   ],
   templateUrl: './create-account.component.html',
@@ -61,7 +61,7 @@ export class CreateAccountComponent {
 
         setTimeout(() => {
           this.router.navigate(['/']);
-        }, 2000);
+        }, 4000);
       },
       error: (err) => {
         console.error('Erreur création de compte :', err);
