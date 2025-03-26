@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TransactionService } from '../services/transaction.service';
+import {ToastService} from '../core/services/toast.service';
 
 @Component({
   selector: 'app-transaction',
@@ -12,17 +13,18 @@ import { TransactionService } from '../services/transaction.service';
   styleUrls: ['./transaction.component.scss']
 })
 export class TransactionComponent {
-  emitterAccountId: string = ''; 
+  emitterAccountId: string = '';
   receiverAccountId!: string;
   amount!: number;
   description!: string;
   amountExceedsBalance: boolean = false;
-  accountBalance: number = 2450.85; 
+  accountBalance: number = 2450.85;
 
   constructor(
     private transactionService: TransactionService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastService: ToastService
   ) {}
 
   checkAmount() {
@@ -48,19 +50,20 @@ export class TransactionComponent {
       this.transactionService.createTransaction(transactionData)
         .subscribe({
           next: response => {
-            window.alert('Transaction réalisée avec succès');
+            this.toastService.show('✅ Transaction réalisée avec succès', 'success');
             this.router.navigate(['/home']);
             this.receiverAccountId = '';
             this.amount = 0;
             this.description = '';
           },
           error: error => {
-            window.alert('Erreur lors de la réalisation de la transaction');
+            this.toastService.show('❌ Erreur lors de la réalisation de la transaction', 'error');
             console.error(error);
           }
         });
     }
   }
+
 
   goToHome(): void {
     this.router.navigate(['/home']);

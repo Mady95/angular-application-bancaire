@@ -9,12 +9,7 @@
       Ouvrir un nouveau compte
     </h5>
 
-      <div *ngIf="message" class="alert text-center" [ngClass]="{
-      'alert-success': messageType === 'success',
-      'alert-danger': messageType === 'error'
-    }">
-              {{ message }}
-          </div>
+
 
     <form (ngSubmit)="createAccount()" [formGroup]="accountForm">
       <div class="mb-4">

@@ -5,6 +5,7 @@ import {AccountService} from '../core/services/accounts.service';
 import {AuthService} from '../services/auth.service';
 import {Router, RouterLink} from '@angular/router';
 import {CommonModule, NgClass} from "@angular/common";
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-create-account',
@@ -27,7 +28,8 @@ export class CreateAccountComponent {
     private fb: FormBuilder,
     private accountService: AccountService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -54,26 +56,19 @@ export class CreateAccountComponent {
 
     this.accountService.createAccount(formData).subscribe({
       next: () => {
-        this.message = '✅ Compte créé avec succès !';
-        this.messageType = 'success';
-
+        this.toastService.show('✅ Compte créé avec succès !', 'success');
         this.accountForm.reset();
 
         setTimeout(() => {
           this.router.navigate(['/']);
-        }, 3000);
+        }, 2000);
       },
       error: (err) => {
         console.error('Erreur création de compte :', err);
-        this.message = '❌ Une erreur est survenue. Veuillez réessayer.';
-        this.messageType = 'error';
-        setTimeout(() => {
-          this.message = '';
-          this.messageType = '';
-        }, 3000);
-
+        this.toastService.show('❌ Une erreur est survenue. Veuillez réessayer.', 'error');
       }
     });
+
 
   }
 }
