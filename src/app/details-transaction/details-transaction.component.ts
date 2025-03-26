@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { Transaction } from '../model/transaction';
-import { TransactionService } from '../service/transaction.service';
+import { TransactionService } from '../services/transaction.service';
 
 @Component({
   selector: 'app-details-transaction',
