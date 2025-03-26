@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TransactionService } from '../services/transaction.service';
 import {ToastService} from '../core/services/toast.service';
-import { AccountService } from '../core/services/accounts.service';
+import { Account, AccountService } from '../core/services/accounts.service';
 
 @Component({
   selector: 'app-transaction',
@@ -20,6 +20,8 @@ export class TransactionComponent {
   description!: string;
   amountExceedsBalance: boolean = false;
   accountBalance: number = 0; 
+  accounts: Account[] = [];
+  isSameAccount: boolean = false;
 
   constructor(
     private transactionService: TransactionService,
@@ -34,13 +36,14 @@ export class TransactionComponent {
       this.emitterAccountId = params.get('id') || 'defaultAccountId';
       console.log(this.emitterAccountId);
       this.loadAccountDetails();
+      this.loadAccounts();
     });
   }
 
   loadAccountDetails(): void {
     this.accountService.getAccountById(this.emitterAccountId).subscribe({
       next: account => {
-        this.accountBalance = account.balance; // Assurez-vous que l'API retourne un champ `balance`
+        this.accountBalance = account.balance; 
         console.log('Account balance:', this.accountBalance);
       },
       error: error => {
@@ -51,6 +54,36 @@ export class TransactionComponent {
 
   checkAmount() {
     this.amountExceedsBalance = this.amount > this.accountBalance;
+  }
+
+  loadAccounts(): void {
+    this.accountService.getAccounts().subscribe({
+      next: accounts => {
+        this.accounts = accounts; 
+        console.log('Comptes disponibles :', this.accounts);
+      },
+      error: error => {
+        console.error('Erreur lors de la récupération des comptes :', error);
+      }
+    });
+  }
+
+  onEmitterAccountChange(): void {
+    const selectedAccount = this.accounts.find(account => account.id === this.emitterAccountId);
+    if (selectedAccount) {
+      this.accountBalance = selectedAccount.balance;
+    }
+  }
+
+  onReceiverAccountChange(): void {
+    const selectedAccount = this.accounts.find(account => account.id === this.receiverAccountId);
+    if (selectedAccount) {
+      console.log('Compte receveur sélectionné :', selectedAccount.label);
+    }
+  }
+
+  onAccountSelectionChange(): void {
+    this.isSameAccount = this.emitterAccountId === this.receiverAccountId;
   }
 
   onSubmit() {

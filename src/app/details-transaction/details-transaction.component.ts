@@ -52,7 +52,7 @@ export class DetailsTransactionComponent implements OnInit {
       const now = new Date();
       const transactionDate = new Date(this.transaction.date);
       const diffInMilliseconds = now.getTime() - transactionDate.getTime();
-      const threeSecondsInMilliseconds = 3000;
+      const threeSecondsInMilliseconds = 5000;
   
       if (diffInMilliseconds >= threeSecondsInMilliseconds) {
         this.status = 'Validé';
