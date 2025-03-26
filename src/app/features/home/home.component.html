@@ -1,12 +1,13 @@
 
 
+  <!-- Contenu principal -->
   <div class="container mt-4">
-    <div class="row d-flex align-items-stretch">
+    <div class="row">
       <!-- Bloc comptes -->
       <div class="col-md-6 mb-4">
-        <div class="card h-100">
-          <div class="card-header d-flex justify-content-between align-items-center font-weight-bold">
-            <span class="fw-bold">Mes Comptes</span>
+        <div class="card">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <span>Mes Comptes</span>
             <select class="form-select form-select-sm w-auto" (change)="handleAccountChange($event)">
               <option *ngFor="let account of accounts" [value]="account.id" [selected]="account.id === selectedAccount?.id">
                 {{ account.label }}
@@ -14,19 +15,22 @@
             </select>
           </div>
           <div class="card-body">
-            <ng-container *ngIf="selectedAccount">
+            <ng-container *ngIf="selectedAccount; else noAccounts">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <span>{{ selectedAccount.label }}</span>
                 <span>{{ selectedAccount.balance | currency:'EUR' }}</span>
               </div>
             </ng-container>
+            <ng-template #noAccounts>
+              <p class="text-muted">Aucun compte disponible.</p>
+            </ng-template>
           </div>
         </div>
       </div>
-  
+
       <!-- Bloc actions -->
       <div class="col-md-6 mb-4">
-        <div class="card h-100">
+        <div class="card">
           <div class="card-header">
             <button class="btn btn-outline-secondary w-100" (click)="goToAddAccount()">+ Ajouter Compte</button>
           </div>
@@ -41,27 +45,61 @@
         </div>
       </div>
     </div>
-  
-    <!-- Bloc transactions (inchangé) -->
+
     <div class="row">
       <div class="col-12">
         <div class="card">
-          <div class="card-header fw-bold">Transactions</div>
+          <div class="card-header">Transactions</div>
           <div class="card-body">
-            <ng-container *ngIf="transactions.length > 0; else noTransactions">
-              <div *ngFor="let transaction of transactions" class="d-flex justify-content-between align-items-center mb-3">
-                <div class="d-flex align-items-center">
-                  <i [class]="transaction.amount > 0 ? 'fas fa-arrow-down text-success me-3' : 'fas fa-arrow-up text-danger me-3'"></i>
+            <ng-container *ngIf="hasTransactions(); else noTransactions">
+              <div *ngFor="let transaction of transactions" class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex align-items-center gap-3">
+                  <!-- Avatar avec initiales -->
+                  <div class="avatar bg-secondary text-white rounded-circle d-flex justify-content-center align-items-center"
+                       style="width: 40px; height: 40px;">
+                    {{ getInitials(
+                    selectedAccount?.id === transaction.emitter.id
+                      ? transaction.receiver.owner.name
+                      : transaction.emitter.owner.name
+                  ) }}
+
+                  </div>
+
                   <div>
-                    <div>{{ transaction.type }}</div>
-                    <small class="text-muted">{{ transaction.date | date:'dd MMM yyyy' }}</small>
+                    <strong>
+                      {{
+                        selectedAccount?.id === transaction.emitter.id
+                          ? transaction.receiver.owner.name
+                          : transaction.emitter.owner.name
+                      }}
+                    </strong>
+                    <div class="text-muted small">
+                      {{ transaction.description }}
+                      <br>
+                      {{ transaction.emittedAt | date:'dd/MM/yyyy HH:mm' }}
+                    </div>
                   </div>
                 </div>
-                <span [class]="transaction.amount > 0 ? 'text-success' : 'text-danger'">
-                  {{ transaction.amount | currency:'EUR' }}
-                </span>
+
+                <!-- Montant à droite -->
+                <div class="text-end">
+                  <i [class]="
+                selectedAccount?.id === transaction.emitter.id
+                  ? 'fas fa-arrow-up text-danger me-2'
+                  : 'fas fa-arrow-down text-success me-2'
+              "></i>
+                  <span [class]="
+                selectedAccount?.id === transaction.emitter.id
+                  ? 'text-danger fw-bold'
+                  : 'text-success fw-bold'
+              ">
+                {{ selectedAccount?.id === transaction.emitter.id ? '-' : '+' }}
+                    {{ transaction.amount | currency:'EUR' }}
+              </span>
+                </div>
               </div>
             </ng-container>
+
             <ng-template #noTransactions>
               <p class="text-muted">Aucune transaction disponible.</p>
             </ng-template>
@@ -69,5 +107,5 @@
         </div>
       </div>
     </div>
+
   </div>
-  

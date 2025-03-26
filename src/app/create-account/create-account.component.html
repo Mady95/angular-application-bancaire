@@ -9,6 +9,13 @@
       Ouvrir un nouveau compte
     </h5>
 
+      <div *ngIf="message" class="alert text-center" [ngClass]="{
+      'alert-success': messageType === 'success',
+      'alert-danger': messageType === 'error'
+    }">
+              {{ message }}
+          </div>
+
     <form (ngSubmit)="createAccount()" [formGroup]="accountForm">
       <div class="mb-4">
         <label for="label" class="form-label">Label du Compte</label>
@@ -21,6 +28,9 @@
       </div>
 
       <button type="submit" class="btn btn-dark w-100" [disabled]="accountForm.invalid">Créer le compte</button>
+
     </form>
+
+
   </div>
 </div>

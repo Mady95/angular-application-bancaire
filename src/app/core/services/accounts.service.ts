@@ -37,6 +37,13 @@ export class AccountService {
     });
   }
 
+  getTransactionsByAccountId(accountId: string) {
+    return this.http.get<any[]>(`${this.apiUrl}/${accountId}/transactions`, {
+      headers: this.authService.getAuthHeaders()
+    });
+  }
+
+
 }
 
 
