@@ -1,4 +1,21 @@
+$primary-color: #1e3a8a; // Bleu principal
+
 .navbar {
-    background-color: #ffffff;
-    border-bottom: 1px solid #dee2e6;
+  background-color: $primary-color;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 15px 0;
+}
+
+.navbar-brand, .navbar-nav .nav-link {
+  color: white !important;
+}
+
+.btn-outline-light {
+  border-color: rgba(255,255,255,0.5);
+  color: white;
+  
+  &:hover {
+    background-color: rgba(255,255,255,0.1);
   }
+}

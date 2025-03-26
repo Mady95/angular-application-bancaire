@@ -1,15 +1,9 @@
-
-
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
-
-
-  <div class="card p-4 shadow-sm w-100" style="max-width: 500px;">
+  <div class="card p-4 shadow-lg w-100" style="max-width: 500px;">
     <h5 class="mb-5 text-center">
       <i class="bi bi-plus-circle me-2"></i>
       Ouvrir un nouveau compte
     </h5>
-
-
 
     <form (ngSubmit)="createAccount()" [formGroup]="accountForm">
       <div class="mb-4">
@@ -22,10 +16,9 @@
         <input type="number" class="form-control" id="balance" formControlName="initialBalance" placeholder="0.00">
       </div>
 
-      <button type="submit" class="btn btn-dark w-100" [disabled]="accountForm.invalid">Créer le compte</button>
-
+      <button type="submit" class="btn btn-primary w-100" [disabled]="accountForm.invalid">
+        Créer le compte
+      </button>
     </form>
-
-
   </div>
 </div>

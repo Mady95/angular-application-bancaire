@@ -1,0 +1,128 @@
+// Variables
+$primary-color: #1e3a8a; // Bleu principal
+$secondary-color: #3b82f6; // Bleu clair
+$success-color: #10b981;  // Vert
+$danger-color: #ef4444;   // Rouge
+$light-bg: #f3f4f6;       // Gris clair
+$text-muted: #374151;     // Gris foncé
+$accent-color: #d4af37;   // Or
+
+// Styles globaux
+body {
+  background-color: $light-bg;
+  font-family: 'Roboto', sans-serif;
+  color: $text-muted;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  background-color: white;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+  animation: fadeIn 0.5s ease-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, $primary-color, $secondary-color);
+    color: white;
+    border-radius: 15px 15px 0 0;
+    padding: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+
+    h3 {
+      margin-left: 15px;
+      font-size: 1.5rem;
+      color: black;
+    }
+  }
+
+  .card-body {
+    padding: 30px;
+    color: $text-muted;
+
+    .account-info {
+      p {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+
+      .amount {
+        font-size: 1.25rem;
+        font-weight: bold;
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+.btn-outline-primary {
+  border-color: $secondary-color;
+  color: $secondary-color;
+  font-size: 1rem;
+  padding: 10px 20px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: $secondary-color;
+    color: white;
+    transform: scale(1.05);
+  }
+
+  i {
+    margin-right: 8px;
+  }
+}
+
+.text-muted {
+  color: $text-muted !important;
+}
+
+.no-data {
+  padding: 40px 20px;
+  text-align: center;
+  color: $text-muted;
+
+  i {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    opacity: 0.5;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .card-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .account-info {
+    p {
+      font-size: 1rem;
+    }
+  }
+
+  .btn-outline-primary {
+    width: 100%;
+  }
+}

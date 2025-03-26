@@ -1,54 +1,221 @@
-body {
-  background-color: #f8f9fa;
-}
+// Variables
+$primary-color: #1e3a8a; // Bleu principal
+$secondary-color: #3b82f6; // Bleu clair
+$success-color: #10b981;  // Vert
+$danger-color: #ef4444;   // Rouge
+$light-bg: #f3f4f6;       // Gris clair
+$text-muted: #374151;     // Gris foncé
+$accent-color: #d4af37;   // Or
 
-.navbar {
-  background-color: #ffffff;
-  border-bottom: 1px solid #dee2e6;
+// Styles globaux
+body {
+  background-color: $light-bg;
+  font-family: 'Roboto', sans-serif;
+  color: $text-muted;
 }
 
 .card {
-  background-color: #ffffff;
+  background-color: white;
   border: none;
-  box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
 }
 
 .card-header {
-  background-color: #ffffff;
+  background-color: $primary-color;
+  color: white;
+  border-radius: 10px 10px 0 0 !important;
+  padding: 15px 20px;
+  font-weight: 500;
+  border-bottom: none;
 }
 
-.transaction-icon {
-  font-size: 1.5rem;
+.card-footer {
+  background-color: transparent;
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
 
-  background-color: #f8f9fa;
+.btn-outline-primary {
+  border-color: $secondary-color;
+  color: $secondary-color;
+
+  &:hover {
+    background-color: $secondary-color;
+    color: white;
   }
-  
-  .card {
-    background-color: #ffffff;
-    border: none;
-    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075);
+}
+
+.btn-primary {
+  background-color: $primary-color;
+  border-color: $primary-color;
+
+  &:hover {
+    background-color: $secondary-color;
+    border-color: $secondary-color;
   }
-  
-  .card-header {
-    background-color: #ffffff;
-  }
-  
-  .transaction-icon {
-    font-size: 1.5rem;
+}
+
+.text-success {
+  color: $success-color !important;
+}
+
+.text-danger {
+  color: $danger-color !important;
+}
+
+.text-muted {
+  color: $text-muted !important;
+}
+
+.avatar {
+  background-color: $secondary-color !important;
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+}
+
+.form-select {
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  background-color: rgba(255,255,255,0.2);
+  color: white;
+
+  &:focus {
+    border-color: $secondary-color;
+    box-shadow: 0 0 0 0.25rem rgba($secondary-color, 0.25);
   }
 
-  .transaction-item {
-    cursor: pointer; // Change le curseur pour indiquer que c'est cliquable
-    transition: background 0.2s ease-in-out;
-    padding: 10px;
-    border-radius: 5px;
-  
+  option {
+    color: #333;
+  }
+}
+
+.progress {
+  height: 6px;
+  background-color: #e9ecef;
+  border-radius: 3px;
+}
+
+.progress-bar {
+  background-color: $primary-color;
+}
+
+.footer {
+  margin-top: 50px;
+  padding: 20px 0;
+  background-color: white;
+  color: $text-muted;
+  border-top: 1px solid rgba(0,0,0,0.05);
+
+  a {
+    color: $text-muted;
+    text-decoration: none;
+
     &:hover {
-      background: #f8f9fa; // Change le fond au survol
-    }
-  
-    &:active {
-      background: #e9ecef; // Effet au clic (flash rapide)
+      color: $primary-color;
     }
   }
-  
+}
+
+/* Styles spécifiques au composant */
+.account-balance {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.transaction-item {
+  animation: fadeIn 0.3s ease-out forwards;
+  padding: 12px 15px;
+  border-radius: 8px;
+  background-color: white;
+  margin-bottom: 10px !important;
+  transition: background-color 0.2s;
+  border-left: 4px solid transparent;
+
+  &.credit {
+    border-left-color: $success-color;
+  }
+
+  &.debit {
+    border-left-color: $danger-color;
+  }
+
+  &:hover {
+    background-color: #f9f9f9;
+  }
+}
+
+.transaction-amount {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.quick-action-btn {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px 0;
+  transition: all 0.2s;
+  color: $secondary-color;
+
+  &:hover {
+    background-color: rgba(0,0,0,0.03);
+    color: $primary-color;
+  }
+
+  i {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+}
+
+.no-data {
+  padding: 40px 20px;
+  text-align: center;
+  color: $text-muted;
+
+  i {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    opacity: 0.5;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-select {
+    margin-top: 10px;
+    width: 100% !important;
+  }
+
+  .quick-action-btn {
+    padding: 10px 0;
+  }
+}
