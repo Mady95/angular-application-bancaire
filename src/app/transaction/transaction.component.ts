@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TransactionService } from '../service/transaction.service';
@@ -12,24 +12,39 @@ import { TransactionService } from '../service/transaction.service';
   styleUrls: ['./transaction.component.scss']
 })
 export class TransactionComponent {
-  id!: number;
-  emitterAccountId: string = 'myAccountId'; // Replace with actual account ID
+  emitterAccountId: string = ''; 
   receiverAccountId!: string;
   amount!: number;
   description!: string;
-  date: Date = new Date();
   amountExceedsBalance: boolean = false;
-  accountBalance: number = 100; 
+  accountBalance: number = 2450.85; 
 
-  constructor(private transactionService: TransactionService, private router: Router) {}
-
+  constructor(
+    private transactionService: TransactionService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
   checkAmount() {
     this.amountExceedsBalance = this.amount > this.accountBalance;
   }
 
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      this.emitterAccountId = params.get('id') || 'defaultAccountId';
+      console.log(this.emitterAccountId)
+    });
+  }
+
   onSubmit() {
     if (!this.amountExceedsBalance) {
-      this.transactionService.createTransaction(this.id, this.emitterAccountId, this.receiverAccountId, this.amount, this.description, this.date)
+      const transactionData = {
+        emitterAccountId: this.emitterAccountId,
+        receiverAccountId: this.receiverAccountId,
+        amount: this.amount,
+        description: this.description
+      };
+
+      this.transactionService.createTransaction(transactionData)
         .subscribe({
           next: response => {
             window.alert('Transaction réalisée avec succès');

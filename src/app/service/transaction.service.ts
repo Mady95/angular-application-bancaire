@@ -10,15 +10,15 @@ import { AuthService } from './auth.service';
 export class TransactionService {
 
   private apiUrl = 'https://coding-bank.fly.dev/transactions';
-  private apiUrl2 = 'https://coding-bank.fly.dev/accounts/';
+  private apiUrl2 = 'https://coding-bank.fly.dev/accounts';
   transactions: Transaction[] = [];
 
   constructor(private http: HttpClient, private authService: AuthService) { }
 
-  createTransaction(id: number, emitterAccountId: string, receiverAccountId: string, amount: number, description: string, date: Date): Observable<Transaction> {
-    const transaction = new Transaction(id, emitterAccountId, receiverAccountId, amount, description, date);
+  createTransaction(data: {emitterAccountId: string, receiverAccountId: string, amount: number, description: string}): Observable<any> {
+    // const transaction = new Transaction(id, emitterAccountId, receiverAccountId, amount, description, date);
     const headers = this.authService.getAuthHeaders();
-    return this.http.post<Transaction>(`${this.apiUrl}/emit`, transaction, { headers });
+    return this.http.post(`${this.apiUrl}/emit`, data, { headers });
   }
 
   getTransactionById(transactionId: string): Observable<Transaction> {
