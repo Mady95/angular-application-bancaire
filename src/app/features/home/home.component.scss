@@ -15,4 +15,19 @@ body {
   .transaction-icon {
     font-size: 1.5rem;
   }
+
+  .transaction-item {
+    cursor: pointer; // Change le curseur pour indiquer que c'est cliquable
+    transition: background 0.2s ease-in-out;
+    padding: 10px;
+    border-radius: 5px;
+  
+    &:hover {
+      background: #f8f9fa; // Change le fond au survol
+    }
+  
+    &:active {
+      background: #e9ecef; // Effet au clic (flash rapide)
+    }
+  }
   

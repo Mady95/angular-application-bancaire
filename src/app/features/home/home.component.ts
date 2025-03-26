@@ -86,4 +86,8 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  goToDetailsTransaction(transactionId: string): void {
+    this.router.navigate(['/details-transaction', transactionId]);
+  }
+
 }

@@ -12,6 +12,7 @@ import { AllTransactionsComponent } from './all-transactions/all-transactions.co
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path : 'home', component: HomeComponent },
   { path: 'account/:id', component: AccountDetailsComponent },
   { path: 'create-account', component: CreateAccountComponent },
   { path: 'profile', component: ProfileComponent },

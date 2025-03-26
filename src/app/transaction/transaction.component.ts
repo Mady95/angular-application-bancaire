@@ -49,7 +49,7 @@ export class TransactionComponent {
         .subscribe({
           next: response => {
             window.alert('Transaction réalisée avec succès');
-            this.router.navigate(['/accounts', this.emitterAccountId, 'transactions']);
+            this.router.navigate(['/home']);
             this.receiverAccountId = '';
             this.amount = 0;
             this.description = '';
@@ -60,5 +60,9 @@ export class TransactionComponent {
           }
         });
     }
+  }
+
+  goToHome(): void {
+    this.router.navigate(['/home']);
   }
 }
