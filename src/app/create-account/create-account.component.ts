@@ -61,7 +61,7 @@ export class CreateAccountComponent {
 
         setTimeout(() => {
           this.router.navigate(['/']);
-        }, 4000);
+        }, 3000);
       },
       error: (err) => {
         console.error('Erreur création de compte :', err);
