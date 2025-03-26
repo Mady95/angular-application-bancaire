@@ -3,13 +3,15 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {HttpClient} from '@angular/common/http';
 import {AccountService} from '../core/services/accounts.service';
 import {AuthService} from '../services/auth.service';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-create-account',
   imports: [
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    NgClass
   ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss'
@@ -17,11 +19,15 @@ import {RouterLink} from '@angular/router';
 export class CreateAccountComponent {
   accountForm!: FormGroup;
   userName: string = '';
+  message: string = '';
+  messageType: 'success' | 'error' | '' = '';
+
 
   constructor(
     private fb: FormBuilder,
     private accountService: AccountService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -48,13 +54,26 @@ export class CreateAccountComponent {
 
     this.accountService.createAccount(formData).subscribe({
       next: () => {
-        alert('Compte créé avec succès !');
+        this.message = '✅ Compte créé avec succès !';
+        this.messageType = 'success';
+
         this.accountForm.reset();
+
+        setTimeout(() => {
+          this.router.navigate(['/']);
+        }, 2000);
       },
       error: (err) => {
         console.error('Erreur création de compte :', err);
-        alert('Une erreur est survenue. Veuillez réessayer.');
+        this.message = '❌ Une erreur est survenue. Veuillez réessayer.';
+        this.messageType = 'error';
+        setTimeout(() => {
+          this.message = '';
+          this.messageType = '';
+        }, 3000);
+
       }
     });
+
   }
 }
