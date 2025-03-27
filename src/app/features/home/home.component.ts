@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
 
   transactions: any[] = [];
 
-
   constructor(
     private accountService: AccountService,
     private router: Router
@@ -38,6 +37,7 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
   handleAccountChange(event: Event): void {
     const selectedId = (event.target as HTMLSelectElement).value;
     this.selectedAccount = this.accounts.find(acc => acc.id === selectedId) || null;
@@ -98,4 +98,11 @@ export class HomeComponent implements OnInit {
   }
   
 
+  logout() {
+    // Logique de déconnexion (peut inclure la suppression du token, etc.)
+    console.log('Déconnexion réussie');
+
+    // Rediriger vers la page de login
+    this.router.navigate(['/login']);
+  }
 }
