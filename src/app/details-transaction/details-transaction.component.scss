@@ -5,17 +5,69 @@ $muted-color: #6c757d;      // Gris
 $background-color: #f8f9fa; // Fond léger
 $white-color: #ffffff;      // Blanc pour les arrière-plans
 $paypal-blue-dark: #003087;
+$paypal-blue-light: #009cde;
+$paypal-blue-neutral: #0070ba;
+$paypal-white: #ffffff;
+$paypal-gray-light: #f5f5f5;
+$paypal-gray-medium: #e6e6e6;
+$paypal-text-dark: #2c2e2f;
+$paypal-text-light: #6c7378;
+$paypal-success: #28a745;
+$paypal-danger: #d9534f;
+
+/* Styles de base */
+body {
+  background-color: $paypal-gray-light;
+  font-family: 'Roboto', sans-serif;
+  color: $paypal-text-dark;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Bouton Retour */
+.btn-outline-primary {
+  border: 2px solid $paypal-blue-dark;
+  color: $paypal-blue-dark;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  margin-bottom: 30px;
+  
+  i {
+    margin-right: 8px;
+  }
+  
+  &:hover {
+    background-color: $paypal-blue-dark;
+    color: $paypal-white;
+    transform: translateY(-2px);
+  }
+}
+
+/* Carte de détails */
 .transaction-details-card {
-  background-color: $white-color;
-  border-radius: 12px;
-  padding: 24px;
-  width: 600px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.5s ease-out;
+  background-color: $paypal-white;
+  border: 1px solid $paypal-gray-medium; // ✅ même bordure que les autres cartes
+  border-radius: 15px;                   // ✅ même arrondi
+  padding: 30px;
+  margin-bottom: 20px;
+  animation: fadeIn 0.4s ease-out;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    border-color: $paypal-blue-light;
+  }
 
   .card-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding-bottom: 20px;
     margin-bottom: 20px;
@@ -24,105 +76,174 @@ $paypal-blue-dark: #003087;
     h3 {
       font-size: 1.5rem;
       font-weight: 600;
+      margin: 0;
       display: flex;
       align-items: center;
-    }
-  }
-
-  // Style pour l'avatar, émetteur, et autres infos
-  .emitter-info {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 20px;
-  }
-
-  .emitter-name {
-    font-weight: bold;
-    margin: 0;
-  }
-
-  .emitter-label {
-    color: $muted-color;
-    font-size: 14px;
-    margin: 0;
-  }
-
-  .avatar {
-    width: 40px;
-    height: 40px;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: $muted-color;
-    color: $white-color;
-  }
-
-  .transaction-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-    font-size: 16px;
-  }
-
-  .text-muted {
-    color: $muted-color;
-    font-size: 14px;
-  }
-
-  .transaction-value {
-    font-weight: 600;
-    text-align: right;
-  }
-
-  .text-success {
-    color: $success-color !important;
-    font-size: 18px;
-  }
-
-  .status-badge {
-    padding: 6px 12px;
-    border-radius: 15px;
-    font-size: 14px;
-    font-weight: bold;
-    display: inline-block;
-    background-color: $success-color;
-    color: $white-color;
-  }
-
-  .transaction-details-card div:not(:last-child) {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    padding-bottom: 12px;
-    margin-bottom: 12px;
-  }
-
-  // Responsive adjustments
-  @media (max-width: 600px) {
-    .transaction-details-card {
-      width: 100%;
-      padding: 16px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .transaction-details-card {
-      width: 95%;
-      padding: 20px;
+      
+      i {
+        color: $paypal-blue-light;
+        margin-right: 12px;
+        font-size: 1.2rem;
+      }
     }
   }
 }
 
+/* Sections de détails */
+.transaction-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+  
+  .text-muted {
+    color: $paypal-text-light;
+  }
+  
+  .fw-bold {
+    font-weight: 600;
+    color: $paypal-blue-dark;
+  }
+}
 
-.btn-outline-primary {
-  border: 2px solid $paypal-blue-dark;
-  color: $paypal-blue-dark;
+.emitter-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
 
-  &:hover {
+  .avatar {
+    width: 45px;
+    height: 45px;
     background-color: $paypal-blue-dark;
-    color: white;
+    color: $paypal-white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  .emitter-name {
+    font-weight: 600;
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .emitter-label {
+    color: $paypal-text-light;
+    font-size: 0.85rem;
+    margin: 0;
+  }
+}
+
+.transaction-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid $paypal-gray-light;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .text-muted {
+    color: $paypal-text-light;
+    font-size: 0.95rem;
+  }
+
+  .transaction-value {
+    font-weight: 500;
+    text-align: right;
+    
+    &.text-success {
+      color: $paypal-success !important;
+      font-weight: 600;
+    }
+    
+    &.text-danger {
+      color: $paypal-danger !important;
+      text-decoration: line-through;
+    }
+  }
+}
+
+/* Badge de statut */
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  
+  &.bg-success {
+    background-color: $paypal-success;
+    color: $paypal-white;
+  }
+  
+  &.bg-danger {
+    background-color: $paypal-danger;
+    color: $paypal-white;
+  }
+}
+
+/* Bouton Annuler */
+.transaction-actions {
+  margin-top: 30px;
+
+  .btn-danger {
+    background-color: $paypal-danger;
+    border: none;
+    color: $paypal-white;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 50px;
+    width: 100%;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background-color: darken($paypal-danger, 8%);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Message de chargement */
+.loading-message {
+  padding: 50px;
+  text-align: center;
+  color: $paypal-text-light;
+  font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .transaction-details-card {
+    padding: 20px;
+  }
+  
+  .card-header h3 {
+    font-size: 1.3rem;
+  }
+  
+  .transaction-info {
+    flex-direction: column;
+    gap: 5px;
+    
+    .transaction-value {
+      text-align: left;
+    }
+  }
+  
+  .btn-outline-primary {
+    width: 100%;
+    text-align: center;
   }
 }
