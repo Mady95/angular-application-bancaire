@@ -87,6 +87,11 @@ Math: any;
       this.loadTransactions(this.selectedAccount.id, this.currentPage);
     }
   }
+
+  getTotalPages(): number[] {
+    return Array.from({ length: Math.ceil(this.totalTransactions / this.pageSize) }, (_, i) => i + 1);
+  }
+  
   goToHome(): void {
     this.router.navigate(['/home']);
   }
