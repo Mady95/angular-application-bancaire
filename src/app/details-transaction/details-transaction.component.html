@@ -55,7 +55,11 @@
       <!-- Montant -->
       <div class="transaction-info">
         <span class="text-muted">Montant</span>
-        <span class="transaction-value text-success">€{{ transaction?.amount }}</span>
+        <span 
+    class="transaction-value" 
+    [ngClass]="{'text-danger text-decoration-line-through': transaction?.status === 'cancelled', 'text-success': transaction?.status !== 'cancelled'}">
+    {{ transaction?.amount }}€
+  </span>
       </div>
 
       <!-- Statut -->

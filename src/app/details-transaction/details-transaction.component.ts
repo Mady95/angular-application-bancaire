@@ -75,6 +75,7 @@ export class DetailsTransactionComponent implements OnInit {
         next: () => {
           this.toastService.show('❌ Transaction annulée avec succès.', 'success');
           this.transaction.status = 'cancelled';
+          this.transactionStatus = 'cancelled';
           this.router.navigate(['/home']);
         },
         error: error => {

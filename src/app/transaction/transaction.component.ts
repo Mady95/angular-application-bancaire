@@ -68,24 +68,6 @@ export class TransactionComponent {
     });
   }
 
-  onEmitterAccountChange(): void {
-    const selectedAccount = this.accounts.find(account => account.id === this.emitterAccountId);
-    if (selectedAccount) {
-      this.accountBalance = selectedAccount.balance;
-    }
-  }
-
-  onReceiverAccountChange(): void {
-    const selectedAccount = this.accounts.find(account => account.id === this.receiverAccountId);
-    if (selectedAccount) {
-      console.log('Compte receveur sélectionné :', selectedAccount.label);
-    }
-  }
-
-  onAccountSelectionChange(): void {
-    this.isSameAccount = this.emitterAccountId === this.receiverAccountId;
-  }
-
   onSubmit() {
     if (!this.amountExceedsBalance) {
       const transactionData = {
