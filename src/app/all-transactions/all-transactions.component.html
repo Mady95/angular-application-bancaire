@@ -1,17 +1,13 @@
 <div class="container mt-4">
-    <h2 class="mb-4"><i class="fas fa-credit-card me-2"></i>Toutes les Transactions</h2>
-    <div class="mb-3">
-      <label for="accountSelect" class="form-label">Sélectionnez un compte</label>
-      <select id="accountSelect" class="form-select" (change)="handleAccountChange($event)">
-        <option *ngFor="let account of accounts" [value]="account.id" [selected]="account.id === selectedAccount?.id">
-          {{ account.label }}
-        </option>
-      </select>
-    </div>
+
+  <button class="btn btn-outline-primary mb-4" (click)="goToHome()">
+    <i class="fas fa-arrow-left me-2"></i>Retour à l'Accueil
+  </button>
+  
     <div *ngIf="transactions.length > 0; else noTransactions">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <span><i class="fas fa-list-alt me-2"></i>Transactions</span>
+          <span><i class="fas fa-list-alt me-2"></i>Mes Transactions</span>
         </div>
         <div class="card-body">
           <div (click)="goToDetailsTransaction(transaction.id)" *ngFor="let transaction of transactions" class="transaction-item d-flex justify-content-between align-items-center"
@@ -43,6 +39,9 @@
             </div>
   
             <div class="text-end">
+                <div class="text-muted small">
+                    <strong>{{ transaction.receiver.owner.name }}</strong> 
+                  </div>
               <span class="transaction-amount" [class.text-success]="selectedAccount?.id !== transaction.emitter.id"
                     [class.text-danger]="selectedAccount?.id === transaction.emitter.id">
                 {{ selectedAccount?.id === transaction.emitter.id ? '-' : '+' }}

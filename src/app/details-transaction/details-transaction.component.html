@@ -19,26 +19,31 @@
         </button>
       </div>
 
-      <!-- Émetteur -->
-      <div class="emitter-info">
-        <div class="avatar">
-          {{ getInitials(
-            selectedAccount?.id === transaction?.emitter?.id
-              ? transaction?.receiver?.owner?.name
-              : transaction?.emitter?.owner?.name
-          ) }}
-        </div>
-        <div>
-          <p class="emitter-name">
-            {{
-              selectedAccount?.id === transaction?.emitter?.id
-                ? transaction?.receiver?.owner?.name
-                : transaction?.emitter?.owner?.name
-            }}
-          </p>
-          <p class="emitter-label">Émetteur</p>
-        </div>
+      <!-- Émetteur et Receveur -->
+<div class="emitter-receiver-info d-flex justify-content-between align-items-center">
+    <!-- Émetteur -->
+    <div class="emitter-info d-flex align-items-center">
+      <div class="avatar">
+        {{ getInitials(transaction?.emitter?.owner?.name) }}
       </div>
+      <div>
+        <p class="emitter-name">{{ transaction?.emitter?.owner?.name }}</p>
+        <p class="emitter-label">Émetteur</p>
+      </div>
+    </div>
+  
+    <!-- Receveur -->
+    <div class="receiver-info d-flex align-items-center text-end">
+      <div>
+        <p class="receiver-name">{{ transaction?.receiver?.owner?.name }}</p>
+        <p class="receiver-label">Receveur</p>
+      </div>
+      <div class="avatar ms-2">
+        {{ getInitials(transaction?.receiver?.owner?.name) }}
+      </div>
+    </div>
+  </div>
+      
 
       <!-- Date -->
       <div class="transaction-info">
@@ -57,7 +62,7 @@
         <span class="text-muted">Montant</span>
         <span 
     class="transaction-value" 
-    [ngClass]="{'text-danger text-decoration-line-through': transaction?.status === 'cancelled', 'text-success': transaction?.status !== 'cancelled'}">
+    [ngClass]="{'text-danger text-decoration-line-through': transaction?.status === 'canceled', 'text-success': transaction?.status !== 'canceled'}">
     {{ transaction?.amount }}€
   </span>
       </div>

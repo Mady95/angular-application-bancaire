@@ -87,4 +87,7 @@ Math: any;
       this.loadTransactions(this.selectedAccount.id, this.currentPage);
     }
   }
+  goToHome(): void {
+    this.router.navigate(['/home']);
+  }
 }
