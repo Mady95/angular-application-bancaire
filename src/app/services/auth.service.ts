@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://coding-bank.fly.dev';
+  private apiUrl = 'https://coding-bank.fly.dev'; // Ton URL d'API
 
   constructor(private http: HttpClient) {}
 
@@ -21,14 +21,21 @@ export class AuthService {
     });
   }
 
+  // Méthode pour envoyer les informations de connexion
+  login(credentials: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/login`, credentials);
+  }
+
+  // Méthode pour l'inscription
+  register(user: any): Observable<any> {
+  return this.http.post(`${this.apiUrl}/auth/register`, user);
+}
+
+
   getCurrentUser(): Observable<any> {
     return this.http.get(`${this.apiUrl}/auth/current-user`, {
       headers: this.getAuthHeaders()
     });
-  }
-
-  isLoggedIn(): boolean {
-    return !!this.getToken();
   }
 
   logout() {
