@@ -8,7 +8,6 @@ import { RegisterComponent } from './auth/register/register.component';
 import {ProfileComponent} from './profile/profile.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { DetailsTransactionComponent } from './details-transaction/details-transaction.component';
-import { AllTransactionsComponent } from './all-transactions/all-transactions.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,7 +18,6 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'transaction/:id', component: TransactionComponent },
-  { path: 'account/:id/transactions', component: AllTransactionsComponent },
   { path: 'details-transaction/:id', component: DetailsTransactionComponent },
   { path: '**', redirectTo: '' }
 ];

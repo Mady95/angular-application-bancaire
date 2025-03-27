@@ -19,7 +19,7 @@ export class DetailsTransactionComponent implements OnInit {
   selectedAccount: Account | null = null;
   transactions: any[] = [];
   transactionId: string = '';
-  status: string = 'En attente';
+  transactionStatus: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -32,10 +32,20 @@ export class DetailsTransactionComponent implements OnInit {
     this.loadTransaction();
   }
 
- loadTransaction(): void {
-    this.transactionService.getTransactionById(this.transactionId).subscribe(transaction => {
-      this.transaction = transaction;
-      this.checkStatus();
+  loadTransaction(): void {
+    this.transactionService.getTransactionById(this.transactionId).subscribe({
+      next: (transaction) => {
+        if (transaction) {
+          this.transaction = transaction;
+          this.transactionStatus = transaction.status;
+          this.startStatusCheck();
+        } else {
+          console.error('Transaction non trouvée');
+        }
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération de la transaction', error);
+      }
     });
   }
 
@@ -47,32 +57,28 @@ export class DetailsTransactionComponent implements OnInit {
       .toUpperCase();
   }
 
-  checkStatus(): void {
-    if (this.transaction) {
-      const now = new Date();
-      const transactionDate = new Date(this.transaction.date);
-      const diffInMilliseconds = now.getTime() - transactionDate.getTime();
-      const threeSecondsInMilliseconds = 5000;
-  
-      if (diffInMilliseconds >= threeSecondsInMilliseconds) {
-        this.status = 'Validé';
-      } else {
-        this.status = 'En attente';
-        const remainingTime = threeSecondsInMilliseconds - diffInMilliseconds;
-  
-        // Passe automatiquement à "Validé" après le temps restant
-        setTimeout(() => {
-          this.status = 'Validé';
-        }, remainingTime);
-      }
+  startStatusCheck(): void {
+    if (this.transactionStatus === 'pending') {
+      setTimeout(() => {
+        this.transactionStatus = 'completed'; 
+        this.transaction.status = 'completed'; 
+        console.log('Statut mis à jour :', this.transactionStatus);
+      }, 3000);
     }
   }
 
   cancelTransaction(): void {
     if (this.transaction) {
-      this.transactionService.cancelTransaction(this.transaction.id).subscribe(() => {
-        window.alert('Transaction annulée avec succès');
-        this.router.navigate(['/home']);
+      this.transactionService.cancelTransaction(this.transaction.id).subscribe({
+        next: () => {
+          window.alert('Transaction annulée avec succès');
+          this.transaction.status = 'cancelled'; // Met à jour le statut localement
+          this.router.navigate(['/home']); // Redirige vers la page d'accueil
+        },
+        error: error => {
+          console.error('Erreur lors de l\'annulation de la transaction :', error);
+          window.alert('Erreur lors de l\'annulation de la transaction');
+        }
       });
     }
   }
