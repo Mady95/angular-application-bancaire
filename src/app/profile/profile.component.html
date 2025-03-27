@@ -18,7 +18,7 @@
     <h4 class="mb-1">{{ name }}</h4>
     <p class="text-muted">
       Code client : <strong>{{ clientCode }}</strong>
-      <button class="btn btn-sm btn-outline-primary mx-1" style="padding: 3px 5px" (click)="copy(clientCode)" title="Copier le code client">
+      <button class="btn btn-sm btn-outline-primary mx-1 text-center vertical-align: middle;" style="padding: 3px 3px" (click)="copy(clientCode)" title="Copier le code client">
         <i [class]="copied ? 'fas fa-check text-success' : 'fas fa-copy'"></i>
       </button>
     </p>

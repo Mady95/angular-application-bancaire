@@ -66,7 +66,9 @@ export class CreateAccountComponent {
         this.toastService.show('❌ Une erreur est survenue. Veuillez réessayer.', 'error');
       }
     });
+  }
 
-
+  goToHome(): void {
+    this.router.navigate(['/home']);
   }
 }

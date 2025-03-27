@@ -109,3 +109,23 @@ button.btn-primary {
     font-size: 1.2rem;
   }
 }
+
+.btn-outline-primary {
+  border: 2px solid $paypal-blue-dark;
+  color: $paypal-blue-dark;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+
+  i {
+    margin-right: 8px;
+  }
+
+  &:hover {
+    background-color: $paypal-blue-dark;
+    color: $paypal-white;
+    transform: translateY(-2px);
+  }
+}

@@ -224,30 +224,6 @@ body {
   }
 }
 
-/* Footer */
-.footer {
-  background-color: $paypal-blue-dark;
-  color: $paypal-white;
-  padding: 2.5rem 0;
-  margin-top: 3rem;
-
-  a {
-    color: rgba(255,255,255,0.8);
-    transition: all 0.3s;
-
-    &:hover {
-      color: $paypal-white;
-      text-decoration: none;
-    }
-  }
-
-  .footer-title {
-    color: $paypal-white;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-  }
-}
-
 /* Responsive */
 @media (max-width: 768px) {
   .navbar {

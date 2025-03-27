@@ -97,7 +97,7 @@ export class DetailsTransactionComponent implements OnInit {
     navigator.clipboard.writeText(value).then(() => {
       this.copied = true;
 
-      this.toastService.show('📋 Code client copié !', 'info');
+      this.toastService.show('📋 Id transaction copié !', 'info');
 
       setTimeout(() => {
         this.copied = false;

@@ -103,7 +103,7 @@ export class HomeComponent implements OnInit {
     navigator.clipboard.writeText(value).then(() => {
       this.copied = true;
 
-      this.toastService.show('📋 Code client copié !', 'info');
+      this.toastService.show('📋 Id compte copié !', 'info');
 
       setTimeout(() => {
         this.copied = false;
