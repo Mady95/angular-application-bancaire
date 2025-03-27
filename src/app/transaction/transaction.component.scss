@@ -28,16 +28,18 @@ body {
   max-width: 500px;
   margin: 50px auto;
   padding: 30px;
+  border: 1px solid $paypal-gray-medium;
   background-color: $paypal-white;
-  border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   animation: fadeIn 0.4s ease-out;
   transition: all 0.3s ease;
 
   &:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    border-color: $paypal-blue-light;
   }
+
 }
 
 // Bouton retour
