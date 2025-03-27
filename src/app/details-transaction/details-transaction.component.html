@@ -1,7 +1,7 @@
 <div class="container mt-5" *ngIf="transaction">
     <!-- Lien retour -->
     <button class="btn btn-outline-primary mb-4" (click)="goToHome()">
-      <i class="fas fa-arrow-left"></i> Retour à l'Accueil
+      <i class="fas fa-arrow-left me-2"></i>Retour à l'Accueil
     </button>
 
     <div class="transaction-details-card">
@@ -12,8 +12,11 @@
 
       <!-- ID Transaction -->
       <div class="transaction-header">
-        <span class="text-muted">ID Transaction</span>
+        <span class="text-muted">ID Transaction: </span>
         <span class="fw-bold">#{{ transaction?.id }}</span>
+        <button class="btn btn-sm btn-outline-primary mx-1" style="padding: 3px 5px" (click)="copy(transaction?.id)" title="Copier le code client">
+          <i [class]="copied ? 'fas fa-check text-success' : 'fas fa-copy'"></i>
+        </button>
       </div>
 
       <!-- Émetteur et Receveur -->

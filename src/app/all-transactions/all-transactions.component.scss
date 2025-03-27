@@ -23,6 +23,25 @@ body {
     font-weight: 500;
     color: $paypal-blue-dark;
   }
+  .btn-outline-primary {
+    border: 2px solid $paypal-blue-dark;
+    color: $paypal-blue-dark;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+    
+    i {
+      margin-right: 8px;
+    }
+    
+    &:hover {
+      background-color: $paypal-blue-dark;
+      color: $paypal-white;
+      transform: translateY(-2px);
+    }
+  }
   
 
 .row {
