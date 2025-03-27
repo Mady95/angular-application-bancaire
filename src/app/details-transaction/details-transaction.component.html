@@ -61,11 +61,8 @@
       <div class="transaction-info">
         <span class="text-muted">Montant</span>
         <span  class="transaction-value" 
-    [ngClass]="{'text-danger text-decoration-line-through': transaction?.status === 'canceled', 'text-success': transaction?.status !== 'canceled'}"
-    [class.text-success]="selectedAccount?.id !== transaction?.emitter?.id"
-    [class.text-danger]="selectedAccount?.id === transaction?.emitter?.id">
-{{ selectedAccount?.id === transaction?.emitter?.id ? '-' : '+' }}
-{{ transaction?.amount | currency:'EUR':'symbol':'1.2-2' }}
+    [ngClass]="{'text-danger text-decoration-line-through': transaction?.status === 'canceled', 'text-success': transaction?.status !== 'canceled'}">
+{{ transaction?.amount}}€
   </span>
       </div>
 

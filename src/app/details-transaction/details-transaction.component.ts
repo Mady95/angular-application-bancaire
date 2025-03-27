@@ -6,6 +6,7 @@ import { Account, AccountService } from '../core/services/accounts.service';
 import { Transaction } from '../model/transaction';
 import { TransactionService } from '../services/transaction.service';
 import {ToastService} from '../core/services/toast.service';
+import { TransactionSyncService } from '../services/transaction-sync.service';
 
 @Component({
   selector: 'app-details-transaction',
@@ -26,7 +27,8 @@ export class DetailsTransactionComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private transactionService: TransactionService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private transactionSyncService: TransactionSyncService,
   ) {}
 
   ngOnInit(): void {
@@ -76,6 +78,7 @@ export class DetailsTransactionComponent implements OnInit {
           this.toastService.show('❌ Transaction annulée avec succès.', 'success');
           this.transaction.status = 'cancelled';
           this.transactionStatus = 'cancelled';
+          this.transactionSyncService.updateTransaction(this.transaction);
           this.router.navigate(['/home']);
         },
         error: error => {

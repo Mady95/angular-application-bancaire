@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Account, AccountService } from '../../core/services/accounts.service';
 import { Router } from '@angular/router';
 import {ToastService} from '../../core/services/toast.service';
+import { TransactionSyncService } from '../../services/transaction-sync.service';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private accountService: AccountService,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private transactionSyncService: TransactionSyncService
   ) {}
 
   ngOnInit(): void {
@@ -27,16 +29,20 @@ export class HomeComponent implements OnInit {
 
     this.accountService.getAccounts().subscribe((data) => {
       this.accounts = data;
-
       if (savedAccountId) {
         this.selectedAccount = this.accounts.find(account => account.id === savedAccountId) || null;
       } else if (data.length > 0) {
         this.selectedAccount = data[0];
       }
-
       if (this.selectedAccount) {
         this.loadTransactions(this.selectedAccount.id);
       }
+
+      this.transactionSyncService.transactionUpdate$.subscribe((updatedTransaction) => {
+        if (updatedTransaction) {
+          this.updateTransactionInList(updatedTransaction);
+        }
+      });
     });
   }
 
@@ -63,6 +69,10 @@ export class HomeComponent implements OnInit {
   loadTransactions(accountId: string): void {
     this.accountService.getTransactionsByAccountId(accountId).subscribe(transactions => {
       this.transactions = transactions
+      .filter(transaction => {
+        // Inclure les transactions annulées uniquement si le compte est l'émetteur
+        return transaction.status !== 'canceled' || transaction.emitter.id === accountId;
+      })
         .sort((a, b) => new Date(b.emittedAt).getTime() - new Date(a.emittedAt).getTime()) // ordre décroissant
         .slice(0, 5);
     });
@@ -111,7 +121,21 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
+  updateTransactionInList(updatedTransaction: any): void {
+    if (this.selectedAccount?.id === updatedTransaction.emitter.id) {
+      // Si le compte sélectionné est l'émetteur, mettez à jour ou ajoutez la transaction annulée
+      const transaction = this.transactions.find(t => t.id === updatedTransaction.id);
+      if (transaction) {
+        transaction.status = 'canceled'; // Met à jour le statut
+      } else {
+        // Ajoutez la transaction annulée si elle n'existe pas déjà
+        this.transactions.push(updatedTransaction);
+      }
+    } else if (this.selectedAccount?.id === updatedTransaction.receiver.id) {
+      // Si le compte sélectionné est le receveur, retirez la transaction annulée
+      this.transactions = this.transactions.filter(t => t.id !== updatedTransaction.id);
+    }
+  }
 
   logout() {
     // Logique de déconnexion (peut inclure la suppression du token, etc.)
