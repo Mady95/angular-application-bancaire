@@ -1,0 +1,54 @@
+.transaction-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  
+    &:last-child {
+      border-bottom: none;
+    }
+  
+    .avatar {
+      width: 40px;
+      height: 40px;
+      background-color: #f0f0f0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #555;
+    }
+  
+    .transaction-amount {
+      font-size: 1.2rem;
+      font-weight: bold;
+  
+      &.text-success {
+        color: #28a745;
+      }
+  
+      &.text-danger {
+        color: #dc3545;
+      }
+    }
+  
+    .credit {
+      background-color: #e6f7e6;
+    }
+  
+    .debit {
+      background-color: #fbeaea;
+    }
+  }
+  
+  .pagination {
+    .page-item {
+      .page-link {
+        cursor: pointer;
+      }
+  
+      &.active .page-link {
+        background-color: #007bff;
+        color: white;
+      }
+    }
+  }
