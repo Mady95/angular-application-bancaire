@@ -71,6 +71,11 @@ export class HomeComponent implements OnInit {
   hasTransactions(): boolean {
     return Array.isArray(this.transactions) && this.transactions.length > 0;
   }
+  goToAllTransactions(): void {
+    if (this.selectedAccount) {
+      this.router.navigate(['/account', this.selectedAccount.id, 'transactions']);
+    }
+  }
 
   getInitials(fullName: string): string {
     return fullName
