@@ -75,10 +75,8 @@ export class DetailsTransactionComponent implements OnInit {
         next: () => {
           this.toastService.show('❌ Transaction annulée avec succès.', 'success');
           this.transaction.status = 'cancelled';
+          this.transactionStatus = 'cancelled';
           this.router.navigate(['/home']);
-          window.alert('Transaction annulée avec succès');
-          this.transaction.status = 'cancelled'; 
-          this.router.navigate(['/home']); 
         },
         error: error => {
           console.error('Erreur lors de l\'annulation de la transaction :', error);
