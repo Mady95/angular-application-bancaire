@@ -99,7 +99,8 @@ export class TransactionComponent {
         .subscribe({
           next: response => {
             this.toastService.show('✅ Transaction réalisée avec succès', 'success');
-            this.router.navigate(['/home']);
+            const transactionId = response.id;
+            this.router.navigate(['/details-transaction', transactionId]);
             this.receiverAccountId = '';
             this.amount = 0;
             this.description = '';

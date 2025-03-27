@@ -5,14 +5,16 @@ export class Transaction {
     amount: number;
     description: string;
     date: Date;
+    status: string;
 
-    constructor(id: number, emitterAccountId: string, receiverAccountId: string, amount: number, description: string, date: Date) {
+    constructor(id: number, emitterAccountId: string, receiverAccountId: string, amount: number, description: string, date: Date, status: string) {
         this.id = id;
         this.emitterAccountId = emitterAccountId;
         this.receiverAccountId = receiverAccountId;
         this.amount = amount;
         this.description = description;
         this.date = date;
+        this.status = status;
     }
 
     getTransactionId() {
