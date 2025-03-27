@@ -1,6 +1,11 @@
 
   
   <!-- Contenu principal -->
+  <div class="container">
+    <div class="welcome-text py-3 px-2">
+      <h4 class="mb-0">👋 Bienvenue sur votre espace bancaire.</h4>
+    </div>
+  </div>
   <div class="container mt-4">
     <div class="row">
       <!-- Bloc comptes -->
@@ -18,12 +23,17 @@
             <ng-container *ngIf="selectedAccount; else noAccounts">
               <div class="d-flex justify-content-between align-items-center mb-3">
                 <div>
-                  <h5 class="mb-1">{{ selectedAccount.label }}</h5>
-                </div>
+                    <h5 class="mb-1">{{ selectedAccount.label }}</h5>
+
+                  </div>
                 <span class="account-balance">{{ selectedAccount.balance | currency:'EUR':'symbol':'1.2-2' }}</span>
               </div>
-              <small class="text-muted">Solde disponible: {{ selectedAccount.balance | currency:'EUR':'symbol':'1.2-2' }}</small>
-            </ng-container>
+              <div class="d-flex align-items-center gap-2">
+                <small class="text-muted">ID: {{ selectedAccount.id }}</small>
+                <button class="btn btn-sm btn-outline-secondary copy-btn" (click)="copyAccountId(selectedAccount.id)" title="Copier l'ID">
+                  <i class="fas fa-copy"></i>
+                </button>
+              </div>            </ng-container>
             <ng-template #noAccounts>
               <div class="no-data">
                 <i class="fas fa-wallet"></i>
