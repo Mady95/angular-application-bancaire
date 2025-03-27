@@ -67,6 +67,9 @@
       <div class="no-data">
         <i class="fas fa-exchange-alt"></i>
         <p class="text-muted">Aucune transaction disponible pour ce compte.</p>
+        <button class="btn btn-primary mt-2"  (click)="goToTransaction()">
+          <i class="fas fa-plus-circle me-2"></i> Effectuer une transaction
+        </button>
       </div>
     </ng-template>
     <nav *ngIf="totalTransactions > pageSize" class="mt-4">

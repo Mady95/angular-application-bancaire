@@ -87,7 +87,13 @@ Math: any;
       this.loadTransactions(this.selectedAccount.id, this.currentPage);
     }
   }
-
+  goToTransaction(): void {
+    if (this.selectedAccount?.id) {
+      this.router.navigate(['/transaction', this.selectedAccount.id]);
+    } else {
+      window.alert('Veuillez sélectionner un compte avant de créer une transaction.');
+    }
+  }
   getTotalPages(): number[] {
     return Array.from({ length: Math.ceil(this.totalTransactions / this.pageSize) }, (_, i) => i + 1);
   }
