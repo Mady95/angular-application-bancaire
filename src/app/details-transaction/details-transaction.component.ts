@@ -22,16 +22,24 @@ export class DetailsTransactionComponent implements OnInit {
   transactions: any[] = [];
   transactionId: string = '';
   transactionStatus: string = '';
+  copied = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private accountService: AccountService,
     private transactionService: TransactionService,
     private toastService: ToastService,
     private transactionSyncService: TransactionSyncService,
   ) {}
 
   ngOnInit(): void {
+    const selectedAccountId = localStorage.getItem('selectedAccountId');
+  if (selectedAccountId) {
+    this.accountService.getAccountById(selectedAccountId).subscribe(account => {
+      this.selectedAccount = account;
+    });
+  }
     this.transactionId = this.route.snapshot.paramMap.get('id') || '';
     this.loadTransaction();
   }
@@ -94,14 +102,27 @@ export class DetailsTransactionComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  copied = false;
+  getFormattedAmount(): { sign: string, class: string } {
+    if (!this.transaction || !this.selectedAccount) {
+      return { sign: '', class: '' };
+    }
+  
+    if (this.transaction.status === 'canceled') {
+      return { sign: '-', class: 'text-danger text-decoration-line-through' }; // Rouge et barré pour les transactions annulées
+    }
+  
+    const isDebit = this.selectedAccount.id === this.transaction.emitter.id;
+    return {
+      sign: isDebit ? '-' : '+',
+      class: isDebit ? 'text-danger' : 'text-success' // Rouge pour les débits, vert pour les crédits
+    };
+  }
 
+  
   copy(value: string) {
     navigator.clipboard.writeText(value).then(() => {
       this.copied = true;
-
       this.toastService.show('📋 Id transaction copié !', 'info');
-
       setTimeout(() => {
         this.copied = false;
       }, 3000);

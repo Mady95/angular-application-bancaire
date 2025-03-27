@@ -39,21 +39,24 @@
             </div>
   
             <div class="text-end">
-                <div class="text-muted small">
-                    <strong>{{ transaction.receiver.owner.name }}</strong> 
-                  </div>
-              <span class="transaction-amount" [class.text-success]="selectedAccount?.id !== transaction.emitter.id"
-                    [class.text-danger]="selectedAccount?.id === transaction.emitter.id">
+              <div class="text-muted small">
+                <strong>{{ transaction.receiver.owner.name }}</strong> 
+              </div>
+              <span class="transaction-amount" 
+              [class.text-success]="selectedAccount?.id !== transaction.emitter.id && transaction.status !== 'canceled'"
+              [class.text-danger]="selectedAccount?.id === transaction.emitter.id || transaction.status === 'canceled'"
+              [class.text-decoration-line-through]="transaction.status === 'canceled'">
                 {{ selectedAccount?.id === transaction.emitter.id ? '-' : '+' }}
                 {{ transaction.amount | currency:'EUR':'symbol':'1.2-2' }}
               </span>
               <div class="small text-muted mt-1">
-                <i [class]="
+                <i *ngIf="transaction.status !== 'canceled'"
+                [class]="
                   selectedAccount?.id === transaction.emitter.id
                     ? 'fas fa-arrow-down text-danger me-1'
                     : 'fas fa-arrow-up text-success me-1'
                 "></i>
-                {{ selectedAccount?.id === transaction.emitter.id ? 'Débit' : 'Crédit' }}
+                {{ transaction.status === 'canceled' ? 'Annulée' : (selectedAccount?.id === transaction.emitter.id ? 'Débit' : 'Crédit') }}
               </div>
             </div>
           </div>
