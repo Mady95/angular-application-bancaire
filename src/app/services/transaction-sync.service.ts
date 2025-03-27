@@ -11,4 +11,5 @@ export class TransactionSyncService {
   updateTransaction(transaction: any): void {
     this.transactionUpdateSource.next(transaction);
   }
+  
 }

@@ -83,9 +83,15 @@
 
       <!-- Bouton Annuler (uniquement si la transaction est "pending") -->
       <div class="transaction-actions mt-3">
-        <button *ngIf="transaction?.status === 'pending'" class="btn btn-danger w-100" (click)="cancelTransaction()">
+        <button *ngIf="transaction?.status === 'pending'" class="btn btn-danger w-100 mt-2" (click)="cancelTransaction()">
           Annuler la Transaction
         </button>
+        <button 
+        *ngIf="transaction?.status === 'canceled'" 
+        class="btn btn-warning w-100 mt-2" 
+        (click)="retryTransaction()">
+        Réessayer la Transaction
+      </button>
       </div>
     </div>
   </div>

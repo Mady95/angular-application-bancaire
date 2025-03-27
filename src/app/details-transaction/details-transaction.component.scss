@@ -200,8 +200,6 @@ body {
 
       &:hover {
         background-color: darken($paypal-danger, 8%);
-        margin-right: 12px;
-        font-size: 1.2rem;
       }
     }
   }
@@ -311,19 +309,47 @@ body {
 
   .btn-danger {
     background-color: $paypal-danger;
-    border: none;
     color: $paypal-white;
+    border: none;
     font-weight: 600;
     padding: 12px;
     border-radius: 50px;
-    width: 100%;
     transition: all 0.3s ease;
-    
+    box-shadow: 0 3px 10px rgba(255, 152, 0, 0.3);
+  
     &:hover {
-      background-color: darken($paypal-danger, 8%);
+      background-color: darken(#ff9800, 8%);
       transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(255, 152, 0, 0.4);
+    }
+  
+    &:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 5px rgba(255, 152, 0, 0.2);
     }
   }
+  .btn-warning {
+    background-color: #ff9800; // Couleur orange douce et agréable
+    color: $paypal-white;
+    border: none;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(255, 152, 0, 0.3);
+  
+    &:hover {
+      background-color: darken(#ff9800, 8%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(255, 152, 0, 0.4);
+    }
+  
+    &:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 5px rgba(255, 152, 0, 0.2);
+    }
+  }
+  
 }
 
 /* Animation */

@@ -97,6 +97,33 @@ export class DetailsTransactionComponent implements OnInit {
     }
   }
 
+  retryTransaction(): void {
+    if (!this.transaction) return;
+  
+    const retryPayload = {
+      emitterAccountId: this.transaction.emitter.id,
+      receiverAccountId: this.transaction.receiver.id,
+      amount: this.transaction.amount,
+      description: this.transaction.description,
+    };
+  
+    this.transactionService.createTransaction(retryPayload).subscribe({
+      next: (newTransaction) => {
+        this.toastService.show('✅ Transaction relancée avec succès.', 'success');
+        // Met à jour l'id et recharge les détails avec la nouvelle transaction créée
+        this.transactionId = newTransaction.id;
+        this.router.navigate(['/details-transaction', this.transactionId]); // optionnel pour actualiser l'URL
+        this.loadTransaction(); // Recharge les détails de la transaction immédiatement
+      },
+      error: (error) => {
+        console.error('Erreur lors du réessai de la transaction :', error);
+        this.toastService.show('⚠️ Échec lors du réessai de la transaction.', 'error');
+      }
+    });
+  }
+  
+  
+
 
   goToHome(): void {
     this.router.navigate(['/home']);
