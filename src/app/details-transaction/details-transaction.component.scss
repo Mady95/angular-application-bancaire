@@ -1,4 +1,9 @@
-// Palette PayPal
+// Variables de couleur
+$primary-color: #007bff;    // Bleu
+$success-color: #28a745;    // Vert pour succès
+$muted-color: #6c757d;      // Gris
+$background-color: #f8f9fa; // Fond léger
+$white-color: #ffffff;      // Blanc pour les arrière-plans
 $paypal-blue-dark: #003087;
 $paypal-blue-light: #009cde;
 $paypal-blue-neutral: #0070ba;
@@ -66,7 +71,7 @@ body {
     align-items: center;
     padding-bottom: 20px;
     margin-bottom: 20px;
-    border-bottom: 1px solid $paypal-gray-medium;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
     h3 {
       font-size: 1.5rem;

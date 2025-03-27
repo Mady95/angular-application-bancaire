@@ -1,0 +1,11 @@
+$paypal-blue-dark: #003087;
+
+.btn-outline-primary {
+  border: 2px solid $paypal-blue-dark;
+  color: $paypal-blue-dark;
+
+  &:hover {
+    background-color: $paypal-blue-dark;
+    color: white;
+  }
+}

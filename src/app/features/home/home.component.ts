@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Account, AccountService } from '../../core/services/accounts.service';
 import { Router } from '@angular/router';
+import {ToastService} from '../../core/services/toast.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private accountService: AccountService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -70,12 +72,6 @@ export class HomeComponent implements OnInit {
     return Array.isArray(this.transactions) && this.transactions.length > 0;
   }
 
-  goToAllTransactions(): void {
-    if (this.selectedAccount) {
-      this.router.navigate(['/account', this.selectedAccount.id, 'transactions']);
-    }
-  }
-
   getInitials(fullName: string): string {
     return fullName
       .split(' ')
@@ -95,14 +91,22 @@ export class HomeComponent implements OnInit {
   goToDetailsTransaction(transactionId: string): void {
     this.router.navigate(['/details-transaction', transactionId]);
   }
-  copyAccountId(accountId: string): void {
-    navigator.clipboard.writeText(accountId).then(() => {
-      alert('ID du compte copié dans le presse-papiers !');
-    }).catch(() => {
-      alert("Impossible de copier l'ID.");
+
+  copied = false;
+
+  copy(value: string) {
+    navigator.clipboard.writeText(value).then(() => {
+      this.copied = true;
+
+      this.toastService.show('📋 Code client copié !', 'info');
+
+      setTimeout(() => {
+        this.copied = false;
+      }, 3000);
     });
   }
-  
+
+
 
   logout() {
     // Logique de déconnexion (peut inclure la suppression du token, etc.)

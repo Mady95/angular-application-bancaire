@@ -90,4 +90,18 @@ export class DetailsTransactionComponent implements OnInit {
   goToHome(): void {
     this.router.navigate(['/home']);
   }
+
+  copied = false;
+
+  copy(value: string) {
+    navigator.clipboard.writeText(value).then(() => {
+      this.copied = true;
+
+      this.toastService.show('📋 Code client copié !', 'info');
+
+      setTimeout(() => {
+        this.copied = false;
+      }, 3000);
+    });
+  }
 }

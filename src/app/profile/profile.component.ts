@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {AuthService} from '../core/services/auth.service';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
+import {ToastService} from "../core/services/toast.service";
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +16,7 @@ export class ProfileComponent {
   clientCode = '';
   initials = '';
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router, private toastService: ToastService) {}
 
   ngOnInit(): void {
     this.authService.getCurrentUser().subscribe(user => {
@@ -38,11 +39,14 @@ export class ProfileComponent {
     navigator.clipboard.writeText(value).then(() => {
       this.copied = true;
 
+      this.toastService.show('📋 Code client copié !', 'info');
+
       setTimeout(() => {
         this.copied = false;
       }, 3000);
     });
   }
+
 
 
 }

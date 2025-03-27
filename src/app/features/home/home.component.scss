@@ -23,7 +23,7 @@ body {
     font-weight: 500;
     color: $paypal-blue-dark;
   }
-  
+
 
 .row {
     display: flex;
@@ -34,7 +34,7 @@ body {
   .col-md-6 {
     display: flex;
     flex-direction: column;
-  
+
     .card {
       flex-grow: 1; // la carte prend tout l'espace dispo
       height: 100%;
@@ -51,7 +51,7 @@ body {
     color: $paypal-blue-dark !important;
     font-weight: 700;
     font-size: 1.4rem;
-    
+
     span {
       color: $paypal-blue-light;
     }
@@ -61,7 +61,7 @@ body {
     color: $paypal-text-dark !important;
     font-weight: 500;
     padding: 0.5rem 1.2rem;
-    
+
     &:hover {
       color: $paypal-blue-dark !important;
     }
@@ -78,9 +78,9 @@ body {
 }
 
 .btn-primary {
-  background-color: $paypal-blue-dark;
+  /*background-color: $paypal-blue-dark;*/
   border: none;
-  
+
   &:hover {
     background-color: darken($paypal-blue-dark, 8%);
     transform: translateY(-2px);
@@ -90,7 +90,7 @@ body {
 .btn-secondary {
   background-color: $paypal-blue-light;
   border: none;
-  
+
   &:hover {
     background-color: darken($paypal-blue-light, 8%);
   }
@@ -99,9 +99,10 @@ body {
 .btn-outline-primary {
   border: 2px solid $paypal-blue-dark;
   color: $paypal-blue-dark;
-  
+
   &:hover {
     background-color: $paypal-blue-dark;
+    color: white;
   }
 }
 
@@ -164,18 +165,18 @@ body {
     padding: 15px 0;
     transition: all 0.2s;
     color: $paypal-blue-dark;
-  
+
     &:hover {
       background-color: rgba(0,0,0,0.03);
       color: $paypal-blue-light;
     }
-  
+
     i {
       font-size: 1.5rem;
       margin-bottom: 8px;
     }
   }
-  
+
   .copy-btn {
     border-radius: 8px;
     padding: 4px 8px;
@@ -183,11 +184,11 @@ body {
     transition: all 0.2s ease;
     color: $paypal-blue-dark;
     border: 1px solid $paypal-gray-medium;
-  
+
     i {
       font-size: 0.85rem;
     }
-  
+
     &:hover {
       background-color: $paypal-blue-light;
       color: $paypal-white;
@@ -195,7 +196,7 @@ body {
       transform: translateY(-2px);
     }
   }
-  
+
 
 /* Comptes */
 .account-balance {
@@ -216,7 +217,7 @@ body {
   border-radius: 6px;
   padding: 0.75rem 1rem;
   transition: all 0.3s;
-  
+
   &:focus {
     border-color: $paypal-blue-light;
     box-shadow: 0 0 0 3px rgba($paypal-blue-light, 0.2);
@@ -233,7 +234,7 @@ body {
   a {
     color: rgba(255,255,255,0.8);
     transition: all 0.3s;
-    
+
     &:hover {
       color: $paypal-white;
       text-decoration: none;
@@ -251,16 +252,16 @@ body {
 @media (max-width: 768px) {
   .navbar {
     padding: 0.5rem 0;
-    
+
     .navbar-brand {
       font-size: 1.2rem;
     }
-    
+
     .nav-link {
       padding: 0.5rem 0;
     }
   }
-  
+
   .card {
     border-radius: 10px;
   }

@@ -77,6 +77,10 @@ Math: any;
       .toUpperCase();
   }
 
+  goToDetailsTransaction(transactionId: string): void {
+    this.router.navigate(['/details-transaction', transactionId]);
+  }
+
   goToPage(page: number): void {
     if (page >= 1 && page <= Math.ceil(this.totalTransactions / this.pageSize)) {
       this.currentPage = page;
