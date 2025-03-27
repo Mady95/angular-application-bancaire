@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { Account, AccountService } from '../core/services/accounts.service';
 import { Transaction } from '../model/transaction';
 import { TransactionService } from '../services/transaction.service';
+import {ToastService} from '../core/services/toast.service';
 
 @Component({
   selector: 'app-details-transaction',
@@ -24,7 +25,8 @@ export class DetailsTransactionComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private transactionService: TransactionService
+    private transactionService: TransactionService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -60,8 +62,8 @@ export class DetailsTransactionComponent implements OnInit {
   startStatusCheck(): void {
     if (this.transactionStatus === 'pending') {
       setTimeout(() => {
-        this.transactionStatus = 'completed'; 
-        this.transaction.status = 'completed'; 
+        this.transactionStatus = 'completed';
+        this.transaction.status = 'completed';
         console.log('Statut mis à jour :', this.transactionStatus);
       }, 3000);
     }
@@ -71,17 +73,18 @@ export class DetailsTransactionComponent implements OnInit {
     if (this.transaction) {
       this.transactionService.cancelTransaction(this.transaction.id).subscribe({
         next: () => {
-          window.alert('Transaction annulée avec succès');
-          this.transaction.status = 'cancelled'; // Met à jour le statut localement
-          this.router.navigate(['/home']); // Redirige vers la page d'accueil
+          this.toastService.show('❌ Transaction annulée avec succès.', 'success');
+          this.transaction.status = 'cancelled';
+          this.router.navigate(['/home']);
         },
         error: error => {
           console.error('Erreur lors de l\'annulation de la transaction :', error);
-          window.alert('Erreur lors de l\'annulation de la transaction');
+          this.toastService.show('⚠️ Erreur lors de l’annulation de la transaction.', 'error'); // ✅ toast
         }
       });
     }
   }
+
 
   goToHome(): void {
     this.router.navigate(['/home']);

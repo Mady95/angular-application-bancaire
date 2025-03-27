@@ -3,19 +3,19 @@
     <button class="btn btn-outline-primary mb-4" (click)="goToHome()">
       <i class="fas fa-arrow-left"></i> Retour à l'Accueil
     </button>
-  
+
     <div class="transaction-details-card">
       <!-- Titre de la transaction -->
       <div class="card-header d-flex justify-content-between align-items-center">
         <h3><i class="fas fa-wallet"></i> Détails de la Transaction</h3>
       </div>
-  
+
       <!-- ID Transaction -->
       <div class="transaction-header">
         <span class="text-muted">ID Transaction</span>
         <span class="fw-bold">#{{ transaction?.id }}</span>
       </div>
-  
+
       <!-- Émetteur -->
       <div class="emitter-info">
         <div class="avatar">
@@ -36,33 +36,40 @@
           <p class="emitter-label">Émetteur</p>
         </div>
       </div>
-  
+
       <!-- Date -->
       <div class="transaction-info">
         <span class="text-muted">Date</span>
         <span class="transaction-value">{{ transaction?.emittedAt | date:'dd MMM yyyy, HH:mm' }}</span>
       </div>
-  
+
       <!-- Description -->
       <div class="transaction-info">
         <span class="text-muted">Description</span>
         <span class="transaction-value">{{ transaction?.description }}</span>
       </div>
-  
+
       <!-- Montant -->
       <div class="transaction-info">
         <span class="text-muted">Montant</span>
         <span class="transaction-value text-success">€{{ transaction?.amount }}</span>
       </div>
-  
+
       <!-- Statut -->
       <div class="transaction-info">
         <span class="text-muted">Statut</span>
         <span class="transaction-value">
-          <span class="status-badge">{{ transactionStatus }}</span>
+          <span class="status-badge badge"
+                [ngClass]="{
+        'bg-success': transactionStatus === 'pending' || transactionStatus === 'completed',
+        'bg-danger': transactionStatus === 'canceled'
+      }">
+  {{ transactionStatus }}
+</span>
+
         </span>
       </div>
-  
+
       <!-- Bouton Annuler (uniquement si la transaction est "pending") -->
       <div class="transaction-actions mt-3">
         <button *ngIf="transaction?.status === 'pending'" class="btn btn-danger w-100" (click)="cancelTransaction()">
@@ -71,9 +78,8 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Message de chargement si transaction est encore undefined -->
   <div *ngIf="!transaction" class="loading-message text-center">
     <p>Chargement des détails de la transaction...</p>
   </div>
-  
