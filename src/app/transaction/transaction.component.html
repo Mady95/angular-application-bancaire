@@ -11,27 +11,12 @@
       </div>
   
       <form (ngSubmit)="onSubmit()" #transactionForm="ngForm">
+        
         <div class="mb-3">
-          <label for="emitterAccountId" class="form-label">Compte Émetteur</label>
-          <select class="form-select" id="emitterAccountId" [(ngModel)]="emitterAccountId" name="emitterAccountId" (change)="onEmitterAccountChange(); onAccountSelectionChange()" required>
-            <option *ngFor="let account of accounts" [value]="account.id">
-              {{ account.label }} ({{ account.balance | number:'1.2-2' }} €)
-            </option>
-          </select>
+          <label for="receiverAccountId" class="form-label">ID Compte Receveur</label>
+          <input type="text" class="form-control" id="receiverAccountId" [(ngModel)]="receiverAccountId" name="receiverAccountId" placeholder="Entrez l'ID du compte">
         </div>
-  
-        <div class="mb-3">
-          <label for="receiverAccountId" class="form-label">Compte Receveur</label>
-          <select class="form-select" id="receiverAccountId" [(ngModel)]="receiverAccountId" name="receiverAccountId" (change)="onReceiverAccountChange(); onAccountSelectionChange()" required>
-            <option *ngFor="let account of accounts" [value]="account.id">
-              {{ account.label }} ({{ account.balance | number:'1.2-2' }} €)
-            </option>
-          </select>
-        </div>
-  
-        <div *ngIf="isSameAccount" class="alert alert-danger">
-          Le compte émetteur et le compte receveur doivent être différents.
-        </div>
+    
   
         <div class="mb-3">
           <label for="amount" class="form-label">Montant</label>

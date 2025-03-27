@@ -1,5 +1,5 @@
 
-  
+
   <!-- Contenu principal -->
   <div class="container">
     <div class="welcome-text py-3 px-2">
@@ -43,8 +43,7 @@
           </div>
         </div>
       </div>
-  
-      <!-- Bloc actions -->
+
       <div class="col-md-6 mb-4">
         <div class="card h-100">
           <div class="card-header">
@@ -81,7 +80,7 @@
         </div>
       </div>
     </div>
-  
+
     <div class="row">
       <div class="col-12">
         <div class="card">
@@ -90,7 +89,7 @@
           </div>
           <div class="card-body">
             <ng-container *ngIf="hasTransactions(); else noTransactions">
-              <div (click)="goToDetailsTransaction(transaction.id)" *ngFor="let transaction of transactions" 
+              <div (click)="goToDetailsTransaction(transaction.id)" *ngFor="let transaction of transactions"
                    class="transaction-item d-flex justify-content-between align-items-center"
                    [class.credit]="selectedAccount?.id !== transaction.emitter.id"
                    [class.debit]="selectedAccount?.id === transaction.emitter.id">
@@ -102,7 +101,7 @@
                       : transaction.emitter.owner.name
                     ) }}
                   </div>
-  
+
                   <div>
                     <strong>
                       {{
@@ -118,9 +117,9 @@
                     </div>
                   </div>
                 </div>
-  
+
                 <div class="text-end">
-                  <span class="transaction-amount" [class.text-success]="selectedAccount?.id !== transaction.emitter.id" 
+                  <span class="transaction-amount" [class.text-success]="selectedAccount?.id !== transaction.emitter.id"
                         [class.text-danger]="selectedAccount?.id === transaction.emitter.id">
                     {{ selectedAccount?.id === transaction.emitter.id ? '-' : '+' }}
                     {{ transaction.amount | currency:'EUR':'symbol':'1.2-2' }}
@@ -136,7 +135,7 @@
                 </div>
               </div>
             </ng-container>
-  
+
             <ng-template #noTransactions>
               <div class="no-data">
                 <i class="fas fa-exchange-alt"></i>
@@ -144,7 +143,7 @@
                 <button class="btn btn-primary mt-2"  (click)="goToTransaction()">
                   <i class="fas fa-plus-circle me-2"></i> Effectuer une transaction
                 </button>
-                
+
               </div>
             </ng-template>
           </div>
@@ -152,7 +151,7 @@
       </div>
     </div>
   </div>
-  
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">

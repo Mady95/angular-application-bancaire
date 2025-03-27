@@ -1,13 +1,14 @@
-import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './features/home/home.component';
-import { AccountDetailsComponent } from './features/account-details/account-details.component';
-import {CreateAccountComponent} from './create-account/create-account.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import {ProfileComponent} from './profile/profile.component';
 import { TransactionComponent } from './transaction/transaction.component';
 import { DetailsTransactionComponent } from './details-transaction/details-transaction.component';
+import { HomeComponent } from './features/home/home.component';
+import { NgModule } from '@angular/core';
+import { CreateAccountComponent } from './create-account/create-account.component';
+import { AccountDetailsComponent } from './features/account-details/account-details.component';
+import { AllTransactionsComponent } from './all-transactions/all-transactions.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,6 +20,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'transaction/:id', component: TransactionComponent },
   { path: 'details-transaction/:id', component: DetailsTransactionComponent },
+  { path: 'account/:id/transactions', component: AllTransactionsComponent },
   { path: '**', redirectTo: '' }
 ];
 

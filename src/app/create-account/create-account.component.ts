@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {HttpClient} from '@angular/common/http';
 import {AccountService} from '../core/services/accounts.service';
 import {AuthService} from '../services/auth.service';
-import {Router, RouterLink} from '@angular/router';
-import {CommonModule, NgClass} from "@angular/common";
+import {Router} from '@angular/router';
+import {CommonModule} from "@angular/common";
 import {ToastService} from "../core/services/toast.service";
 
 @Component({
@@ -12,7 +11,6 @@ import {ToastService} from "../core/services/toast.service";
   imports: [
     ReactiveFormsModule,
     CommonModule,
-    NgClass
   ],
   templateUrl: './create-account.component.html',
   styleUrl: './create-account.component.scss'

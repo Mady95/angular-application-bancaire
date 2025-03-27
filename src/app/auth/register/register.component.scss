@@ -1,0 +1,59 @@
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0;
+  }
+  
+  .col-4 {
+    padding: 5px;
+  }
+  
+  button, .empty-button {
+    font-size: 16px; /* Réduit la taille de la police */
+    padding: 15px;  /* Réduit la taille des boutons */
+    margin: 5px;
+    text-align: center;
+    cursor: pointer;
+    height: 60px;  /* Fixe une hauteur pour les boutons */
+    width: 60px;   /* Fixe une largeur pour les boutons */
+    border-radius: 10px; /* Arrondir les coins */
+  }
+  
+  .btn-light {
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
+  }
+  
+  .btn-danger {
+    width: 100px;
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .btn-dark {
+    background-color: #343a40;
+    color: white;
+  }
+  
+  .empty-button {
+    border: 1px solid #ddd;
+    background-color: #f8f9fa; /* Assurer que la case vide a un fond clair */
+    border-radius: 10px; /* Arrondir les coins de la case vide */
+  }
+  
+  /* Style des champs de saisie pour s'assurer qu'ils sont uniformes */
+  .form-control {
+    border-radius: 10px;  /* Arrondir les coins des champs de saisie */
+    padding: 10px;        /* Augmenter un peu l'espacement interne */
+    margin: 10px 0;       /* Ajouter un peu d'espace entre les champs */
+    font-size: 16px;      /* Réduire la taille de la police */
+  }
+  
+  /* Style du conteneur de l'inscription */
+  .card {
+    border-radius: 10px;  /* Arrondir les coins de la carte */
+    padding: 30px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  

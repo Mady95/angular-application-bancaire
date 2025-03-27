@@ -19,7 +19,7 @@ export class TransactionComponent {
   amount!: number;
   description!: string;
   amountExceedsBalance: boolean = false;
-  accountBalance: number = 0; 
+  accountBalance: number = 0;
   accounts: Account[] = [];
   isSameAccount: boolean = false;
 
@@ -43,7 +43,7 @@ export class TransactionComponent {
   loadAccountDetails(): void {
     this.accountService.getAccountById(this.emitterAccountId).subscribe({
       next: account => {
-        this.accountBalance = account.balance; 
+        this.accountBalance = account.balance;
         console.log('Account balance:', this.accountBalance);
       },
       error: error => {
@@ -59,31 +59,13 @@ export class TransactionComponent {
   loadAccounts(): void {
     this.accountService.getAccounts().subscribe({
       next: accounts => {
-        this.accounts = accounts; 
+        this.accounts = accounts;
         console.log('Comptes disponibles :', this.accounts);
       },
       error: error => {
         console.error('Erreur lors de la récupération des comptes :', error);
       }
     });
-  }
-
-  onEmitterAccountChange(): void {
-    const selectedAccount = this.accounts.find(account => account.id === this.emitterAccountId);
-    if (selectedAccount) {
-      this.accountBalance = selectedAccount.balance;
-    }
-  }
-
-  onReceiverAccountChange(): void {
-    const selectedAccount = this.accounts.find(account => account.id === this.receiverAccountId);
-    if (selectedAccount) {
-      console.log('Compte receveur sélectionné :', selectedAccount.label);
-    }
-  }
-
-  onAccountSelectionChange(): void {
-    this.isSameAccount = this.emitterAccountId === this.receiverAccountId;
   }
 
   onSubmit() {
@@ -94,6 +76,8 @@ export class TransactionComponent {
         amount: this.amount,
         description: this.description
       };
+
+      this.toastService.show('🔄 Transaction en cours...', 'info');
 
       this.transactionService.createTransaction(transactionData)
         .subscribe({
