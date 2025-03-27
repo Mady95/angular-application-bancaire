@@ -1,19 +1,47 @@
 <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
       <h3 class="text-center mb-4">Créer un compte</h3>
-      <form>
+      <form (ngSubmit)="onSubmit()">
         <div class="mb-3">
-          <label for="username" class="form-label">Nom d'utilisateur</label>
-          <input type="text" class="form-control" id="username" placeholder="Nom d'utilisateur" required>
+          <label for="clientCode" class="form-label">Code Client (Digicode)</label>
+          <input type="text" class="form-control" id="clientCode" [(ngModel)]="clientCode" name="clientCode" placeholder="Entrez le code client" required>
         </div>
+        
+        <!-- Digicode pour le mot de passe -->
         <div class="mb-3">
           <label for="password" class="form-label">Mot de passe</label>
-          <input type="password" class="form-control" id="password" placeholder="Mot de passe" required>
+          <input type="password" class="form-control" id="password" [value]="password" readonly>
+          <!-- Digicode pour le mot de passe -->
+          <div class="mb-3">
+            <div class="row">
+              <div class="col-4" *ngFor="let digit of passwordDigits" (click)="addPasswordDigit(digit)">
+                <button *ngIf="digit !== null" type="button" class="btn btn-light w-100">{{ digit }}</button>
+                <div *ngIf="digit === null" class="empty-button w-100"></div>
+              </div>
+            </div>
+          </div>
         </div>
+  
+        <!-- Digicode pour la confirmation du mot de passe -->
         <div class="mb-3">
           <label for="confirmPassword" class="form-label">Confirmer le mot de passe</label>
-          <input type="password" class="form-control" id="confirmPassword" placeholder="Confirmer le mot de passe" required>
+          <input type="password" class="form-control" id="confirmPassword" [value]="confirmPassword" readonly>
+          <!-- Digicode pour la confirmation du mot de passe -->
+          <div class="mb-3">
+            <div class="row">
+              <div class="col-4" *ngFor="let digit of confirmPasswordDigits" (click)="addConfirmPasswordDigit(digit)">
+                <button *ngIf="digit !== null" type="button" class="btn btn-light w-100">{{ digit }}</button>
+                <div *ngIf="digit === null" class="empty-button w-100"></div>
+              </div>
+            </div>
+          </div>
         </div>
+  
+        <!-- Bouton pour effacer les mots de passe -->
+        <div class="mb-3 text-center">
+          <button type="button" class="btn btn-danger" (click)="clearPasswords()">Effacer</button>
+        </div>
+  
         <button type="submit" class="btn btn-dark w-100">S'inscrire</button>
       </form>
       <div class="text-center mt-3">

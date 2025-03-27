@@ -90,4 +90,11 @@ export class HomeComponent implements OnInit {
     this.router.navigate(['/details-transaction', transactionId]);
   }
 
+  logout() {
+    // Logique de déconnexion (peut inclure la suppression du token, etc.)
+    console.log('Déconnexion réussie');
+
+    // Rediriger vers la page de login
+    this.router.navigate(['/login']);
+  }
 }
