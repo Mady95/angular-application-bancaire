@@ -1,24 +1,30 @@
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg mb-4">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="#">
-        <i class="fas fa-university me-2"></i> Ma Banque
-      </a>
-      <div class="d-flex align-items-center">
-        <div class="dropdown">
-          <button class="btn btn-outline-light dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-user-circle me-2"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-            <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profil</a></li>
-            <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Paramètres</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item text-danger" href="#"><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</a></li>
-          </ul>
-        </div>
+<nav class="navbar navbar-expand-lg mb-4" >
+  <div class="container d-flex justify-content-between align-items-center">
+    <a class="navbar-brand fw-bold" routerLink="/">
+      <i class="fas fa-university me-2"></i> Ma Banque
+    </a>
+
+    <div *ngIf="isLoggedIn; else loginButton" class="user-menu position-relative" #menuRef>
+      <div class="user-avatar" (click)="toggleMenu()" title="Menu utilisateur">
+        {{ initials }}
       </div>
-      <button style="border: none; outline: none; background: none;" (click)="logout()">
-        <i class="fa fa-sign-out" style="color: black; width: 2px; height: 4px; font-size: 20px;"></i>
-      </button>
+
+      <div class="user-dropdown" *ngIf="menuOpen">
+        <a class="dropdown-item" routerLink="/profile" (click)="closeMenu()">
+          <i class="fas fa-user me-2"></i> Profil
+        </a>
+        <hr class="dropdown-divider my-1">
+        <a class="dropdown-item text-danger" (click)="logout(); closeMenu()">
+          <i class="fas fa-sign-out-alt me-2"></i> Déconnexion
+        </a>
+      </div>
     </div>
-  </nav>
+
+    <ng-template #loginButton>
+      <button class="btn btn-outline-light" routerLink="/login">
+        <i class="fas fa-sign-in-alt me-2"></i> Se connecter
+      </button>
+    </ng-template>
+
+  </div>
+</nav>
