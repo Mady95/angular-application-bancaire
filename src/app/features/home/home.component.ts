@@ -15,7 +15,6 @@ export class HomeComponent implements OnInit {
 
   transactions: any[] = [];
 
-
   constructor(
     private accountService: AccountService,
     private router: Router
@@ -38,6 +37,7 @@ export class HomeComponent implements OnInit {
       }
     });
   }
+
   handleAccountChange(event: Event): void {
     const selectedId = (event.target as HTMLSelectElement).value;
     this.selectedAccount = this.accounts.find(acc => acc.id === selectedId) || null;
