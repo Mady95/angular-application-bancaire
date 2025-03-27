@@ -1,24 +1,68 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ElementRef, HostListener, OnInit , ViewChild } from '@angular/core';
+import {Router, RouterLink} from '@angular/router';
+import {AuthService} from '../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
   standalone : true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
-  constructor(private router: Router){}
+  isLoggedIn = false;
+  initials: string = '';
 
-  logout() {
-    // Logique de déconnexion (peut inclure la suppression du token, etc.)
-    console.log('Déconnexion réussie');
+  @ViewChild('menuRef') menuRef!: ElementRef;
 
-    // Rediriger vers la page de login
+  constructor(private authService: AuthService, private router: Router,private eRef: ElementRef) {}
+
+  ngOnInit(): void {
+    this.authService.getCurrentUser().subscribe({
+      next: (user) => {
+        this.initials = this.getInitials(user.name);
+        this.isLoggedIn = true;
+      },
+      error: () => {
+        this.isLoggedIn = false;
+      }
+    });
+  }
+
+  getInitials(name: string): string {
+    return name
+      .split(' ')
+      .map(part => part[0])
+      .join('')
+      .toUpperCase();
+  }
+
+  menuOpen = false;
+
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  logout(): void {
+    // Logique de déconnexion (ex: remove token)
     this.router.navigate(['/login']);
   }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent): void {
+    setTimeout(() => {
+      if (!this.menuRef?.nativeElement.contains(event.target)) {
+        this.menuOpen = false;
+      }
+    });
+  }
+
+
+  closeMenu() {
+    this.menuOpen = false;
+  }
+
 }
 

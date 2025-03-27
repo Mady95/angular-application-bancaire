@@ -82,6 +82,124 @@ body {
       
       i {
         color: $paypal-blue-light;
+        margin-right: 10px;
+      }
+    }
+  }
+
+  // Infos transaction
+  .transaction-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+
+    .text-muted {
+      color: $paypal-text-light;
+    }
+
+    .fw-bold {
+      font-weight: 600;
+    }
+  }
+
+  .emitter-receiver-info {
+    display: flex;
+    justify-content: space-between; /* Émetteur à gauche, receveur à droite */
+    align-items: center;
+    margin-bottom: 20px;
+  
+    .emitter-info,
+    .receiver-info {
+      display: flex;
+      align-items: center;
+      gap: 10px; /* Espacement entre l'avatar et le texte */
+    }
+  
+    .avatar {
+      width: 40px;
+      height: 40px;
+      background-color: $paypal-blue-dark;
+      color: $paypal-white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+    }
+  
+    .emitter-name,
+    .receiver-name {
+      font-weight: bold;
+      margin: 0;
+    }
+  
+    .emitter-label,
+    .receiver-label {
+      color: $paypal-text-light;
+      font-size: 0.85rem;
+      margin: 0;
+    }
+  
+    .receiver-info {
+      text-align: right; /* Aligne le texte du receveur à droite */
+    }
+  }
+
+  // Sections infos
+  .transaction-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 1rem;
+
+    .text-muted {
+      color: $paypal-text-light;
+      font-size: 0.9rem;
+    }
+
+    .transaction-value {
+      font-weight: 600;
+      text-align: right;
+    }
+
+    .text-success {
+      color: $paypal-success !important;
+      font-size: 1.1rem;
+    }
+
+    .text-danger {
+      color: $paypal-danger !important;
+      font-size: 1.1rem;
+    }
+  }
+
+  // Statut badge
+  .status-badge {
+    padding: 6px 12px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    background-color: $paypal-success;
+    color: $paypal-white;
+  }
+
+  // Bouton annuler
+  .transaction-actions {
+    margin-top: 2rem;
+
+    .btn-danger {
+      background-color: $paypal-danger;
+      border-color: $paypal-danger;
+      color: $paypal-white;
+      font-weight: 600;
+      padding: 12px;
+      border-radius: 50px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: darken($paypal-danger, 8%);
         margin-right: 12px;
         font-size: 1.2rem;
       }

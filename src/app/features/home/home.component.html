@@ -116,6 +116,9 @@
                 </div>
 
                 <div class="text-end">
+                  <div class="text-muted small">
+                    <strong>{{ transaction.receiver.owner.name }}</strong> 
+                  </div>
                   <span class="transaction-amount" [class.text-success]="selectedAccount?.id !== transaction.emitter.id"
                         [class.text-danger]="selectedAccount?.id === transaction.emitter.id">
                     {{ selectedAccount?.id === transaction.emitter.id ? '-' : '+' }}
@@ -148,14 +151,3 @@
       </div>
     </div>
   </div>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 text-center text-md-start">
-          <p class="mb-0">&copy; Ma Banque. Tous droits réservés.</p>
-        </div>
-      </div>
-    </div>
-  </footer>
