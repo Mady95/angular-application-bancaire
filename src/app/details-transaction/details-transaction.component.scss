@@ -68,35 +68,46 @@ body {
     }
   }
 
-  // Avatar + émetteur
-  .emitter-info {
+  .emitter-receiver-info {
     display: flex;
+    justify-content: space-between; /* Émetteur à gauche, receveur à droite */
     align-items: center;
-    gap: 12px;
     margin-bottom: 20px;
-
+  
+    .emitter-info,
+    .receiver-info {
+      display: flex;
+      align-items: center;
+      gap: 10px; /* Espacement entre l'avatar et le texte */
+    }
+  
     .avatar {
-      width: 42px;
-      height: 42px;
-      font-size: 14px;
-      font-weight: bold;
+      width: 40px;
+      height: 40px;
+      background-color: $paypal-blue-dark;
+      color: $paypal-white;
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: $paypal-blue-dark;
-      color: $paypal-white;
+      font-weight: bold;
     }
-
-    .emitter-name {
+  
+    .emitter-name,
+    .receiver-name {
       font-weight: bold;
       margin: 0;
     }
-
-    .emitter-label {
+  
+    .emitter-label,
+    .receiver-label {
       color: $paypal-text-light;
       font-size: 0.85rem;
       margin: 0;
+    }
+  
+    .receiver-info {
+      text-align: right; /* Aligne le texte du receveur à droite */
     }
   }
 
@@ -120,6 +131,11 @@ body {
 
     .text-success {
       color: $paypal-success !important;
+      font-size: 1.1rem;
+    }
+
+    .text-danger {
+      color: $paypal-danger !important;
       font-size: 1.1rem;
     }
   }
