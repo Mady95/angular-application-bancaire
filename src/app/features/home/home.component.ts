@@ -95,6 +95,7 @@ export class HomeComponent implements OnInit {
   goToDetailsTransaction(transactionId: string): void {
     this.router.navigate(['/details-transaction', transactionId]);
   }
+  
   copyAccountId(accountId: string): void {
     navigator.clipboard.writeText(accountId).then(() => {
       alert('ID du compte copié dans le presse-papiers !');

@@ -1,7 +1,5 @@
 <div class="container mt-4">
     <h2 class="mb-4"><i class="fas fa-credit-card me-2"></i>Toutes les Transactions</h2>
-  
-    <!-- Sélection du compte -->
     <div class="mb-3">
       <label for="accountSelect" class="form-label">Sélectionnez un compte</label>
       <select id="accountSelect" class="form-select" (change)="handleAccountChange($event)">
@@ -10,15 +8,13 @@
         </option>
       </select>
     </div>
-  
-    <!-- Liste des transactions -->
     <div *ngIf="transactions.length > 0; else noTransactions">
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
           <span><i class="fas fa-list-alt me-2"></i>Transactions</span>
         </div>
         <div class="card-body">
-          <div *ngFor="let transaction of transactions" class="transaction-item d-flex justify-content-between align-items-center"
+          <div (click)="goToDetailsTransaction(transaction.id)" *ngFor="let transaction of transactions" class="transaction-item d-flex justify-content-between align-items-center"
                [class.credit]="selectedAccount?.id !== transaction.emitter.id"
                [class.debit]="selectedAccount?.id === transaction.emitter.id">
             <div class="d-flex align-items-center gap-3">
@@ -65,16 +61,12 @@
         </div>
       </div>
     </div>
-  
-    <!-- Message si aucune transaction -->
     <ng-template #noTransactions>
       <div class="no-data">
         <i class="fas fa-exchange-alt"></i>
         <p class="text-muted">Aucune transaction disponible pour ce compte.</p>
       </div>
     </ng-template>
-  
-    <!-- Pagination -->
     <nav *ngIf="totalTransactions > pageSize" class="mt-4">
         <ul class="pagination justify-content-center">
           <li class="page-item" [class.disabled]="currentPage === 1">

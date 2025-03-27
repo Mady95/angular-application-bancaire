@@ -1,54 +1,290 @@
+// Palette PayPal
+$paypal-blue-dark: #003087;      // Bleu foncé PayPal
+$paypal-blue-light: #009cde;     // Bleu clair PayPal
+$paypal-blue-neutral: #0070ba;   // Bleu intermédiaire
+$paypal-white: #ffffff;          // Blanc
+$paypal-gray-light: #f5f5f5;     // Gris clair
+$paypal-gray-medium: #e6e6e6;    // Gris moyen
+$paypal-text-dark: #2c2e2f;      // Texte foncé
+$paypal-text-light: #6c7378;     // Texte secondaire
+$paypal-success: #28a745;        // Vert (conservé pour la compatibilité)
+$paypal-danger: #d9534f;         // Rouge (légèrement ajusté)
+
+/* Styles de base */
+body {
+  background-color: $paypal-gray-light;
+  font-family: 'Roboto', sans-serif;
+  color: $paypal-text-dark;
+  line-height: 1.6;
+}
+.welcome-text {
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-weight: 500;
+    color: $paypal-blue-dark;
+  }
+  
+
+.row {
+    display: flex;
+    align-items: stretch; // force toutes les colonnes à prendre la même hauteur
+    flex-wrap: wrap;
+  }
+
+  .col-md-6 {
+    display: flex;
+    flex-direction: column;
+  
+    .card {
+      flex-grow: 1; // la carte prend tout l'espace dispo
+      height: 100%;
+    }
+  }
+/* Header - Style PayPal */
+.navbar {
+  background-color: $paypal-white;
+  border-bottom: 1px solid $paypal-gray-medium;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  padding: 0.8rem 0;
+
+  .navbar-brand {
+    color: $paypal-blue-dark !important;
+    font-weight: 700;
+    font-size: 1.4rem;
+    
+    span {
+      color: $paypal-blue-light;
+    }
+  }
+
+  .nav-link {
+    color: $paypal-text-dark !important;
+    font-weight: 500;
+    padding: 0.5rem 1.2rem;
+    
+    &:hover {
+      color: $paypal-blue-dark !important;
+    }
+  }
+}
+
+/* Boutons - Style PayPal */
+.btn {
+  border-radius: 50px;
+  font-weight: 500;
+  padding: 0.6rem 1.8rem;
+  transition: all 0.3s;
+  letter-spacing: 0.3px;
+}
+
+.btn-primary {
+  background-color: $paypal-blue-dark;
+  border: none;
+  
+  &:hover {
+    background-color: darken($paypal-blue-dark, 8%);
+    transform: translateY(-2px);
+  }
+}
+
+.btn-secondary {
+  background-color: $paypal-blue-light;
+  border: none;
+  
+  &:hover {
+    background-color: darken($paypal-blue-light, 8%);
+  }
+}
+
+.btn-outline-primary {
+  border: 2px solid $paypal-blue-dark;
+  color: $paypal-blue-dark;
+  
+  &:hover {
+    background-color: $paypal-blue-dark;
+  }
+}
+
+/* Cartes - Style moderne */
+.card {
+  background-color: $paypal-white;
+  border: 1px solid $paypal-gray-medium;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: all 0.3s;
+  margin-bottom: 1.5rem;
+
+  &:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-color: $paypal-blue-light;
+  }
+}
+
+.card-header {
+  background-color: $paypal-white;
+  color: $paypal-blue-dark;
+  border-bottom: 1px solid $paypal-gray-medium;
+  font-weight: 600;
+  padding: 1.25rem;
+}
+
+/* Transactions */
 .transaction-item {
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
-  
-    &:last-child {
-      border-bottom: none;
-    }
-  
-    .avatar {
-      width: 40px;
-      height: 40px;
-      background-color: #f0f0f0;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: #555;
-    }
-  
+  background-color: $paypal-white;
+  border-left: 4px solid $paypal-blue-light;
+  padding: 1.25rem;
+  margin-bottom: 0.75rem;
+  border-radius: 8px;
+  transition: all 0.3s;
+
+  &.credit {
+    border-left-color: $paypal-success;
     .transaction-amount {
+      color: $paypal-success;
+    }
+  }
+
+  &.debit {
+    border-left-color: $paypal-danger;
+    .transaction-amount {
+      color: $paypal-danger;
+    }
+  }
+
+  &:hover {
+    transform: translateX(5px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  }
+}
+.quick-action-btn {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0;
+    transition: all 0.2s;
+    color: $paypal-blue-dark;
+  
+    &:hover {
+      background-color: rgba(0,0,0,0.03);
+      color: $paypal-blue-light;
+    }
+  
+    i {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+  }
+  
+  .copy-btn {
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    transition: all 0.2s ease;
+    color: $paypal-blue-dark;
+    border: 1px solid $paypal-gray-medium;
+  
+    i {
+      font-size: 0.85rem;
+    }
+  
+    &:hover {
+      background-color: $paypal-blue-light;
+      color: $paypal-white;
+      border-color: $paypal-blue-light;
+      transform: translateY(-2px);
+    }
+  }
+  
+
+/* Comptes */
+.account-balance {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: $paypal-blue-dark;
+}
+
+.balance-label {
+  color: $paypal-text-light;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+/* Formulaire - Style PayPal */
+.form-control {
+  border: 1px solid $paypal-gray-medium;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  transition: all 0.3s;
+  
+  &:focus {
+    border-color: $paypal-blue-light;
+    box-shadow: 0 0 0 3px rgba($paypal-blue-light, 0.2);
+  }
+}
+
+/* Footer */
+.footer {
+  background-color: $paypal-blue-dark;
+  color: $paypal-white;
+  padding: 2.5rem 0;
+  margin-top: 3rem;
+
+  a {
+    color: rgba(255,255,255,0.8);
+    transition: all 0.3s;
+    
+    &:hover {
+      color: $paypal-white;
+      text-decoration: none;
+    }
+  }
+
+  .footer-title {
+    color: $paypal-white;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0.5rem 0;
+    
+    .navbar-brand {
       font-size: 1.2rem;
-      font-weight: bold;
-  
-      &.text-success {
-        color: #28a745;
-      }
-  
-      &.text-danger {
-        color: #dc3545;
-      }
     }
-  
-    .credit {
-      background-color: #e6f7e6;
-    }
-  
-    .debit {
-      background-color: #fbeaea;
+    
+    .nav-link {
+      padding: 0.5rem 0;
     }
   }
   
-  .pagination {
-    .page-item {
-      .page-link {
-        cursor: pointer;
-      }
-  
-      &.active .page-link {
-        background-color: #007bff;
-        color: white;
-      }
-    }
+  .card {
+    border-radius: 10px;
   }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+/* Utilitaires */
+.text-paypal-dark {
+  color: $paypal-blue-dark !important;
+}
+
+.text-paypal-light {
+  color: $paypal-blue-light !important;
+}
+
+.bg-paypal-light {
+  background-color: $paypal-gray-light;
+}
