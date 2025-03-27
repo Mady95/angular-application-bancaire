@@ -1,46 +1,55 @@
 <div class="container">
-    <div class="transaction-card">
-        <h5 class="back-link" (click)="goToHome()">&larr; Transaction</h5>
-
-        <div class="alert alert-secondary info-alert">
-            <strong>💡 Votre solde actuel est de  {{ accountBalance | number:'1.2-2' }} €</strong>
+    
+    <button class="btn btn-outline-primary mb-4" (click)="goToHome()">
+        <i class="fas fa-arrow-left"></i> Retour à l'Accueil
+      </button>
+      <div class="transaction-card">
+  
+      <div class="alert alert-info info-alert">
+        <strong>💡 Votre solde actuel est de {{ accountBalance | number:'1.2-2' }} €</strong>
+      </div>
+  
+      <form (ngSubmit)="onSubmit()" #transactionForm="ngForm">
+        <div class="mb-3">
+          <label for="emitterAccountId" class="form-label">Compte Émetteur</label>
+          <select class="form-select" id="emitterAccountId" [(ngModel)]="emitterAccountId" name="emitterAccountId" (change)="onEmitterAccountChange(); onAccountSelectionChange()" required>
+            <option *ngFor="let account of accounts" [value]="account.id">
+              {{ account.label }} ({{ account.balance | number:'1.2-2' }} €)
+            </option>
+          </select>
         </div>
-
-        <form (ngSubmit)="onSubmit()" #transactionForm="ngForm">
-            <div class="mb-3">
-                <label for="emitterAccountId" class="form-label">Compte Émetteur</label>
-                <select class="form-select" id="emitterAccountId" [(ngModel)]="emitterAccountId" name="emitterAccountId" (change)="onEmitterAccountChange(); onAccountSelectionChange()" required>
-                    <option *ngFor="let account of accounts" [value]="account.id">
-                        {{ account.label }} ({{ account.balance | number:'1.2-2' }} €)
-                    </option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="receiverAccountId" class="form-label">Compte Receveur</label>
-                <select class="form-select" id="receiverAccountId" [(ngModel)]="receiverAccountId" name="receiverAccountId" (change)="onReceiverAccountChange(); onAccountSelectionChange()" required>
-                    <option *ngFor="let account of accounts" [value]="account.id">
-                        {{ account.label }} ({{ account.balance | number:'1.2-2' }} €)
-                    </option>
-                </select>
-            </div>
-            <div *ngIf="isSameAccount" class="alert alert-danger">
-                Le compte émetteur et le compte receveur doivent être différents.
-            </div>
-            <div class="mb-3">
-                <label for="amount" class="form-label">Montant</label>
-                <input type="number" class="form-control" id="amount" required [(ngModel)]="amount" name="amount" (input)="checkAmount()"  placeholder="0.00">
-            </div>
-            <div class="mb-3">
-                <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" required [(ngModel)]="description" name="description" placeholder="Description de la transaction"></textarea>
-            </div>
-            <button type="submit" class="btn btn-dark w-100 confirm-btn" [disabled]="!transactionForm.form.valid || amountExceedsBalance || isSameAccount">
-                Confirmer la Transaction
-            </button>
-        </form>
-
-        <div *ngIf="amountExceedsBalance" class="alert alert-danger mt-3">
-            Le montant dépasse le solde disponible.
+  
+        <div class="mb-3">
+          <label for="receiverAccountId" class="form-label">Compte Receveur</label>
+          <select class="form-select" id="receiverAccountId" [(ngModel)]="receiverAccountId" name="receiverAccountId" (change)="onReceiverAccountChange(); onAccountSelectionChange()" required>
+            <option *ngFor="let account of accounts" [value]="account.id">
+              {{ account.label }} ({{ account.balance | number:'1.2-2' }} €)
+            </option>
+          </select>
         </div>
+  
+        <div *ngIf="isSameAccount" class="alert alert-danger">
+          Le compte émetteur et le compte receveur doivent être différents.
+        </div>
+  
+        <div class="mb-3">
+          <label for="amount" class="form-label">Montant</label>
+          <input type="number" class="form-control" id="amount" required [(ngModel)]="amount" name="amount" (input)="checkAmount()" placeholder="0.00">
+        </div>
+  
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" required [(ngModel)]="description" name="description" placeholder="Description de la transaction"></textarea>
+        </div>
+  
+        <button type="submit" class="btn btn-primary w-100 confirm-btn" [disabled]="!transactionForm.form.valid || amountExceedsBalance || isSameAccount">
+          Confirmer la Transaction
+        </button>
+      </form>
+  
+      <div *ngIf="amountExceedsBalance" class="alert alert-danger mt-3">
+        Le montant dépasse le solde disponible.
+      </div>
     </div>
-</div>
+  </div>
+  
