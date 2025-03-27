@@ -4,6 +4,7 @@ $success-color: #28a745;    // Vert pour succès
 $muted-color: #6c757d;      // Gris
 $background-color: #f8f9fa; // Fond léger
 $white-color: #ffffff;      // Blanc pour les arrière-plans
+$paypal-blue-dark: #003087;
 .transaction-details-card {
   background-color: $white-color;
   border-radius: 12px;
@@ -112,5 +113,16 @@ $white-color: #ffffff;      // Blanc pour les arrière-plans
       width: 95%;
       padding: 20px;
     }
+  }
+}
+
+
+.btn-outline-primary {
+  border: 2px solid $paypal-blue-dark;
+  color: $paypal-blue-dark;
+
+  &:hover {
+    background-color: $paypal-blue-dark;
+    color: white;
   }
 }

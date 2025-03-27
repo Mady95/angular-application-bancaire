@@ -11,7 +11,11 @@
     </div>
     <div class="card-body" *ngIf="accountDetails; else noData">
       <div class="account-info">
-        <p><strong>ID :</strong> {{ accountDetails.id }}</p>
+        <p><strong>ID :</strong> {{ accountDetails.id }}
+          <button class="btn btn-sm btn-outline-primary mx-1" style="padding: 3px 5px" (click)="copy(accountDetails.id)" title="Copier le code client">
+            <i [class]="copied ? 'fas fa-check text-success' : 'fas fa-copy'"></i>
+          </button></p>
+
         <p><strong>Label :</strong> {{ accountDetails.label }}</p>
         <p><strong>Date de Création :</strong> {{ accountDetails.openAt | date:'dd/MM/yyyy' }}</p>
         <p><strong>Montant :</strong> <span class="amount">{{ accountDetails.balance | currency:'EUR' }}</span></p>
