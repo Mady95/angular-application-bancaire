@@ -1,156 +1,156 @@
-
- <div class="container">
-    <div class="welcome-text py-3 px-2">
-      <h4 class="mb-0">👋 Bienvenue sur votre espace bancaire.</h4>
-    </div>
+<div class="container">
+  <div class="welcome-text py-3 px-2">
+    <h4 class="mb-0">👋 Bienvenue sur votre espace bancaire.</h4>
   </div>
-  <div class="container mt-4">
-    <div class="row">
-      <div class="col-md-6 mb-4">
-        <div class="card">
-          <div class="card-header d-flex justify-content-between align-items-center">
-            <span><i class="fas fa-wallet me-2"></i>Mes Comptes</span>
-            <select class="form-select form-select-sm w-auto" (change)="handleAccountChange($event)">
-              <option *ngFor="let account of accounts" [value]="account.id" [selected]="account.id === selectedAccount?.id">
-                {{ account.label }}
-              </option>
-            </select>
-          </div>
-          <div class="card-body">
-            <ng-container *ngIf="selectedAccount; else noAccounts">
-              <div class="d-flex justify-content-between align-items-center mb-3">
-                <div>
-                    <h5 class="mb-1">{{ selectedAccount.label }}</h5>
+</div>
 
-                  </div>
-                <span class="account-balance">{{ selectedAccount.balance | currency:'EUR':'symbol':'1.2-2' }}</span>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span><i class="fas fa-wallet me-2"></i>Mes Comptes</span>
+          <select class="form-select form-select-sm w-auto" (change)="handleAccountChange($event)">
+            <option *ngFor="let account of accounts" [value]="account.id" [selected]="account.id === selectedAccount?.id">
+              {{ account.label }}
+            </option>
+          </select>
+        </div>
+        <div class="card-body">
+          <ng-container *ngIf="selectedAccount; else noAccounts">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="mb-1">{{ selectedAccount.label }}</h5>
               </div>
-              <div class="d-flex align-items-center gap-2">
-                <small class="text-muted">ID: {{ selectedAccount.id }}</small>
-                <button class="btn btn-sm btn-outline-primary mx-1" style="padding: 3px 5px" (click)="copy(selectedAccount.id)" title="Copier le code client">
-                  <i [class]="copied ? 'fas fa-check text-success' : 'fas fa-copy'"></i>
-                </button>
-              </div>            </ng-container>
-            <ng-template #noAccounts>
-              <div class="no-data">
-                <i class="fas fa-wallet"></i>
-                <p class="text-muted">Aucun compte disponible.</p>
-              </div>
-            </ng-template>
-          </div>
+              <span class="account-balance">{{ selectedAccount.balance | currency:'EUR':'symbol':'1.2-2' }}</span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <small class="text-muted">ID: {{ selectedAccount.id }}</small>
+              <button class="btn btn-sm btn-outline-primary mx-1" style="padding: 3px 5px" (click)="copy(selectedAccount.id)" title="Copier le code client">
+                <i [class]="copied ? 'fas fa-check text-success' : 'fas fa-copy'"></i>
+              </button>
+            </div>
+          </ng-container>
+          <ng-template #noAccounts>
+            <div class="no-data">
+              <i class="fas fa-wallet"></i>
+              <p class="text-muted">Aucun compte disponible.</p>
+            </div>
+          </ng-template>
         </div>
       </div>
+    </div>
 
-      <div class="col-md-6 mb-4">
-        <div class="card h-100">
-          <div class="card-header">
-            <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Actions rapides</h5>
-          </div>
-          <div class="card-body p-0">
-            <div class="row g-0 text-center">
-              <div class="col-6">
-                <button class="btn quick-action-btn w-100" (click)="goToAddAccount()">
-                  <i class="fas fa-plus-circle"></i>
-                  <span>Ajouter Compte</span>
-                </button>
-              </div>
-              <div class="col-6">
-                <button class="btn quick-action-btn w-100" (click)="goToAccountDetails()">
-                  <i class="fas fa-university"></i>
-                  <span>Infos Comptes</span>
-                </button>
-              </div>
-              <div class="col-6">
-                <button class="btn quick-action-btn w-100" (click)="goToTransaction()">
-                  <i class="fas fa-exchange-alt"></i>
-                  <span>Nouvelle Transaction</span>
-                </button>
-              </div>
-              <div class="col-6">
-                <button class="btn quick-action-btn w-100" (click)="goToAllTransactions()">
-                  <i class="fas fa-credit-card"></i>
-                  <span>Mes Transactions</span>
-                </button>
-              </div>
+    <div class="col-md-6 mb-4">
+      <div class="card h-100">
+        <div class="card-header">
+          <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Actions rapides</h5>
+        </div>
+        <div class="card-body p-0">
+          <div class="row g-0 text-center">
+            <div class="col-6">
+              <button class="btn quick-action-btn w-100" (click)="goToAddAccount()">
+                <i class="fas fa-plus-circle"></i>
+                <span>Ajouter Compte</span>
+              </button>
+            </div>
+            <div class="col-6">
+              <button class="btn quick-action-btn w-100" (click)="goToAccountDetails()">
+                <i class="fas fa-university"></i>
+                <span>Infos Comptes</span>
+              </button>
+            </div>
+            <div class="col-6">
+              <button class="btn quick-action-btn w-100" (click)="goToTransaction()">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Nouvelle Transaction</span>
+              </button>
+            </div>
+            <div class="col-6">
+              <button class="btn quick-action-btn w-100" (click)="goToAllTransactions()">
+                <i class="fas fa-credit-card"></i>
+                <span>Mes Transactions</span>
+              </button>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-header d-flex justify-content-between align-items-center">
-            <span><i class="fas fa-list-alt me-2"></i>Dernières Transactions</span>
-          </div>
-          <div class="card-body">
-            <ng-container *ngIf="hasTransactions(); else noTransactions">
-              <div (click)="goToDetailsTransaction(transaction.id)" *ngFor="let transaction of transactions"
-                   class="transaction-item d-flex justify-content-between align-items-center"
-                   [class.credit]="selectedAccount?.id !== transaction.emitter.id"
-                   [class.debit]="selectedAccount?.id === transaction.emitter.id">
-                <div class="d-flex align-items-center gap-3">
-                  <div class="avatar">
-                    {{ getInitials(
+  <!-- Dernières transactions -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span><i class="fas fa-list-alt me-2"></i>Dernières Transactions</span>
+        </div>
+        <div class="card-body">
+          <ng-container *ngIf="hasTransactions(); else noTransactions">
+            <div (click)="goToDetailsTransaction(transaction.id)" *ngFor="let transaction of transactions"
+                 class="transaction-item d-flex justify-content-between align-items-center"
+                 [class.credit]="selectedAccount?.id !== transaction.emitter.id"
+                 [class.debit]="selectedAccount?.id === transaction.emitter.id">
+              <div class="d-flex align-items-center gap-3">
+                <div class="avatar">
+                  {{ getInitials(
                     selectedAccount?.id === transaction.emitter.id
                       ? transaction.receiver.owner.name
                       : transaction.emitter.owner.name
-                    ) }}
-                  </div>
-
-                  <div>
-                    <strong>
-                      {{
-                        selectedAccount?.id === transaction.emitter.id
-                          ? transaction.receiver.owner.name
-                          : transaction.emitter.owner.name
-                      }}
-                    </strong>
-                    <div class="text-muted small">
-                      {{ transaction.description }}
-                      <br>
-                      {{ transaction.emittedAt | date:'dd/MM/yyyy HH:mm' }}
-                    </div>
-                  </div>
+                  ) }}
                 </div>
 
-                <div class="text-end">
-                  <div class="text-muted small">
-                    <strong>{{ transaction.receiver.owner.name }}</strong> 
-                  </div>
-                  <span class="transaction-amount" 
-                  [class.text-success]="selectedAccount?.id !== transaction.emitter.id && transaction.status !== 'canceled'"
-                  [class.text-danger]="selectedAccount?.id === transaction.emitter.id || transaction.status === 'canceled'"
-                  [class.text-decoration-line-through]="transaction.status === 'canceled'">
-                    {{ selectedAccount?.id === transaction.emitter.id ? '-' : '+' }}
-                    {{ transaction.amount | currency:'EUR':'symbol':'1.2-2' }}
-                  </span>
-                  <div class="small text-muted mt-1">
-                    <i *ngIf="transaction.status !== 'canceled'"
-                    [class]="
+                <div>
+                  <strong>
+                    {{
                       selectedAccount?.id === transaction.emitter.id
-                        ? 'fas fa-arrow-down text-danger me-1'
-                        : 'fas fa-arrow-up text-success me-1'
-                    "></i>
-                    {{ transaction.status === 'canceled' ? 'Annulée' : (selectedAccount?.id === transaction.emitter.id ? 'Débit' : 'Crédit') }}
+                        ? transaction.receiver.owner.name
+                        : transaction.emitter.owner.name
+                    }}
+                  </strong>
+                  <div class="text-muted small">
+                    {{ transaction.description }}
+                    <br>
+                    {{ transaction.emittedAt | date:'dd/MM/yyyy HH:mm' }}
                   </div>
                 </div>
               </div>
-            </ng-container>
 
-            <ng-template #noTransactions>
-              <div class="no-data">
-                <i class="fas fa-exchange-alt"></i>
-                <p class="text-muted">Aucune transaction disponible.</p>
-                <button class="btn btn-primary mt-2"  (click)="goToTransaction()">
-                  <i class="fas fa-plus-circle me-2"></i> Effectuer une transaction
-                </button>
-
+              <div class="text-end">
+                <div class="text-muted small">
+                  <strong>{{ transaction.receiver.owner.name }}</strong>
+                </div>
+                <span class="transaction-amount" 
+                [class.text-success]="selectedAccount?.id !== transaction.emitter.id && transaction.status !== 'canceled'"
+                [class.text-danger]="selectedAccount?.id === transaction.emitter.id || transaction.status === 'canceled'"
+                [class.text-decoration-line-through]="transaction.status === 'canceled'">
+                  {{ selectedAccount?.id === transaction.emitter.id ? '-' : '+' }}
+                  {{ transaction.amount | currency:'EUR':'symbol':'1.2-2' }}
+                </span>
+                <div class="small text-muted mt-1">
+                  <i *ngIf="transaction.status !== 'canceled'"
+                  [class]="
+                    selectedAccount?.id === transaction.emitter.id
+                      ? 'fas fa-arrow-down text-danger me-1'
+                      : 'fas fa-arrow-up text-success me-1'
+                  "></i>
+                  {{ transaction.status === 'canceled' ? 'Annulée' : (selectedAccount?.id === transaction.emitter.id ? 'Débit' : 'Crédit') }}
+                </div>
               </div>
-            </ng-template>
-          </div>
+            </div>
+          </ng-container>
+
+          <ng-template #noTransactions>
+            <div class="no-data">
+              <i class="fas fa-exchange-alt"></i>
+              <p class="text-muted">Aucune transaction disponible.</p>
+              <button class="btn btn-primary mt-2"  (click)="goToTransaction()">
+                <i class="fas fa-plus-circle me-2"></i> Effectuer une transaction
+              </button>
+            </div>
+          </ng-template>
         </div>
       </div>
     </div>
   </div>
+</div>

@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Account, AccountService } from '../../core/services/accounts.service';
 import { Router } from '@angular/router';
-import {ToastService} from '../../core/services/toast.service';
+import { ToastService } from '../../core/services/toast.service';
 import { TransactionSyncService } from '../../services/transaction-sync.service';
+import { appConfig } from '../../app.config'; // Correct
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,10 @@ export class HomeComponent implements OnInit {
     private transactionSyncService: TransactionSyncService
   ) {}
 
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
   ngOnInit(): void {
     const savedAccountId = localStorage.getItem('selectedAccountId');
 
@@ -54,7 +58,10 @@ export class HomeComponent implements OnInit {
       });
     });
   }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
   handleAccountChange(event: Event): void {
     const selectedId = (event.target as HTMLSelectElement).value;
@@ -79,10 +86,10 @@ export class HomeComponent implements OnInit {
   loadTransactions(accountId: string): void {
     this.accountService.getTransactionsByAccountId(accountId).subscribe(transactions => {
       this.transactions = transactions
-      .filter(transaction => {
-        // Inclure les transactions annulées uniquement si le compte est l'émetteur
-        return transaction.status !== 'canceled' || transaction.emitter.id === accountId;
-      })
+        .filter(transaction => {
+          // Inclure les transactions annulées uniquement si le compte est l'émetteur
+          return transaction.status !== 'canceled' || transaction.emitter.id === accountId;
+        })
         .sort((a, b) => new Date(b.emittedAt).getTime() - new Date(a.emittedAt).getTime()) // ordre décroissant
         .slice(0, 5);
     });
@@ -91,6 +98,7 @@ export class HomeComponent implements OnInit {
   hasTransactions(): boolean {
     return Array.isArray(this.transactions) && this.transactions.length > 0;
   }
+
   goToAllTransactions(): void {
     if (this.selectedAccount) {
       this.router.navigate(['/all-transactions']);
@@ -152,6 +160,5 @@ export class HomeComponent implements OnInit {
     console.log('Déconnexion réussie');
 
     // Rediriger vers la page de login
-    this.router.navigate(['/login']);
-  }
-}
+    this.router.navigate
+  }}
