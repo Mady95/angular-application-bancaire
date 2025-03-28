@@ -48,18 +48,21 @@ export class LoginComponent {
       clientCode: this.clientCode,
       password: this.password
     };
-  
+
     this.authService.login(credentials).subscribe(
       response => {
         console.log('Connexion réussie', response);
-  
+
         if (response && response.jwt) {
           // Sauvegarder le token dans le localStorage
           localStorage.setItem('jwt', response.jwt);
           console.log('Token stocké dans localStorage :', response.jwt);
-          
+
+          this.authService.updateUser(response.user);
+
+
           // Rediriger vers le dashboard
-          this.router.navigate(['/home']); 
+          this.router.navigate(['/home']);
         } else {
           console.error('Le token est manquant dans la réponse');
         }

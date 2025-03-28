@@ -20,16 +20,16 @@ export class NavbarComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router,private eRef: ElementRef) {}
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe({
-      next: (user) => {
+    this.authService.getUserObservable().subscribe(user => {
+      if (user) {
         this.initials = this.getInitials(user.name);
         this.isLoggedIn = true;
-      },
-      error: () => {
+      } else {
         this.isLoggedIn = false;
       }
     });
   }
+
 
   getInitials(name: string): string {
     return name
@@ -46,19 +46,12 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    localStorage.removeItem("jwt")
-    localStorage.removeItem("selectedAccount")
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("selectedAccount");
+    this.authService.logout();
     this.router.navigate(['/login']);
-    this.authService.getCurrentUser().subscribe({
-      next: (user) => {
-        this.initials = this.getInitials(user.name);
-        this.isLoggedIn = true;
-      },
-      error: () => {
-        this.isLoggedIn = false;
-      }
-    });
   }
+
 
   @HostListener('document:click', ['$event'])
   onClickOutside(event: MouseEvent): void {

@@ -17,7 +17,7 @@ export class RegisterComponent {
   password: string = '';
   confirmPassword: string = '';
   registrationCode: string = '';  // Variable pour stocker le code d'inscription
-  
+
   passwordDigits: (number | null)[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, null, null];
   activeField: string = 'password';
 
@@ -58,28 +58,31 @@ export class RegisterComponent {
       alert('Les mots de passe ne correspondent pas!');
       return;
     }
-  
+
     if (!this.name) {
       alert("Le nom d'utilisateur ne peut pas être vide.");
       return;
     }
-  
+
     const registrationData = {
       name: this.name,
       password: this.password
     };
-  
+
     this.authService.register(registrationData).subscribe(
       (response: any) => {
         console.log('Réponse serveur:', response); // Affiche la réponse du serveur dans la console
-  
+
         // Assigner le code d'inscription ou un message générique
         if (response && response.clientCode) {
           this.registrationCode = `Votre code d'inscription est : ${response.clientCode}`;
         } else {
           this.registrationCode = 'Inscription réussie, mais aucun code d\'inscription fourni.';
         }
-        localStorage.setItem("jwt", response.jwt); // Stocker le token dans le localStorage
+        localStorage.setItem("jwt", response.jwt);
+        this.authService.updateUser(response.user);
+
+        // Stocker le token dans le localStorage
         // Redirection vers la page profile avec le code d'inscription
         this.router.navigate(['/profile'], { state: { clientCode: response.clientCode, name: this.name } });
       },
@@ -89,5 +92,5 @@ export class RegisterComponent {
       }
     );
   }
-  
+
 }

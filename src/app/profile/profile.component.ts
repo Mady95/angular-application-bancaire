@@ -19,7 +19,7 @@ export class ProfileComponent {
   constructor(private authService: AuthService, private router: Router, private toastService: ToastService) {}
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe(user => {
+    this.authService.getUserObservable().subscribe(user => {
       this.name = user.name;
       this.clientCode = user.clientCode;
       this.initials = this.getInitials(user.name);

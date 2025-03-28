@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,20 @@ export class AuthService {
   isAuthenticated() {
     throw new Error('Method not implemented.');
   }
-  private apiUrl = 'https://coding-bank.fly.dev'; // Ton URL d'API
+  private apiUrl = 'https://coding-bank.fly.dev';
+  private userSubject = new BehaviorSubject<any | null>(null);
+// Ton URL d'API
 
   constructor(private http: HttpClient) {}
+
+  updateUser(user: any | null): void {
+    this.userSubject.next(user);
+  }
+
+  getUserObservable(): Observable<any | null> {
+    return this.userSubject.asObservable();
+  }
+
 
   // Récupérer le token depuis le localStorage
   getToken(): string | null {
@@ -45,9 +57,11 @@ export class AuthService {
 
   // Déconnexion : supprimer le token du localStorage
   logout(): void {
-    localStorage.removeItem('jwt'); // Supprimer le token du localStorage
-    sessionStorage.clear(); 
+    localStorage.removeItem('jwt');
+    sessionStorage.clear();
+    this.userSubject.next(null);
   }
+
 
   // Vérifier si l'utilisateur est connecté
   isLoggedIn(): boolean {
