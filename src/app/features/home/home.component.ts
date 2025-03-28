@@ -24,29 +24,29 @@ export class HomeComponent implements OnInit {
     private transactionSyncService: TransactionSyncService
   ) {}
 
-  
+
   ngOnInit(): void {
     const savedAccountId = localStorage.getItem('selectedAccountId');
-  
+
     this.accountService.getAccounts().subscribe((data) => {
       this.accounts = data;
-  
+
       if (savedAccountId) {
         // Essayer de récupérer le compte sauvegardé
         this.selectedAccount = this.accounts.find(account => account.id === savedAccountId) || null;
       }
-  
+
       // Si aucun compte sélectionné n'est trouvé, prendre le premier
       if (!this.selectedAccount && data.length > 0) {
         this.selectedAccount = data[0];
         localStorage.setItem('selectedAccountId', this.selectedAccount.id);
       }
-  
+
       // Charger les transactions du compte sélectionné
       if (this.selectedAccount) {
         this.loadTransactions(this.selectedAccount.id);
       }
-  
+
       this.transactionSyncService.transactionUpdate$.subscribe((updatedTransaction) => {
         if (updatedTransaction) {
           this.updateTransactionInList(updatedTransaction);
@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
       });
     });
   }
-  
+
 
   handleAccountChange(event: Event): void {
     const selectedId = (event.target as HTMLSelectElement).value;
@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
   }
   goToAllTransactions(): void {
     if (this.selectedAccount) {
-      this.router.navigate(['/account', this.selectedAccount.id, 'transactions']);
+      this.router.navigate(['/all-transactions']);
     }
   }
 

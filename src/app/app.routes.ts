@@ -8,7 +8,8 @@ import { HomeComponent } from './features/home/home.component';
 import { NgModule } from '@angular/core';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { AccountDetailsComponent } from './features/account-details/account-details.component';
-import { AuthGuard } from './auth/guards/auth.guard'; // Garder le AuthGuard pour les pages protégées
+import { AuthGuard } from './auth/guards/auth.guard';
+import {AllTransactionsComponent} from './all-transactions/all-transactions.component'; // Garder le AuthGuard pour les pages protégées
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },  // Page login
@@ -20,6 +21,7 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },  // Page register (pas de AuthGuard ici)
   { path: 'transaction/:id', component: TransactionComponent, canActivate: [AuthGuard] },
   { path: 'details-transaction/:id', component: DetailsTransactionComponent, canActivate: [AuthGuard] },
+  { path: 'all-transactions', component: AllTransactionsComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '' } // Redirige vers la page login par défaut
 ];
 
