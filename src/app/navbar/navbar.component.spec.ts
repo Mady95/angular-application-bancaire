@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { NavbarComponent } from './navbar.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs'; // ✅ Import pour simuler un observable
 
 describe('NavbarComponent', () => {
   let component: NavbarComponent;
@@ -8,7 +10,15 @@ describe('NavbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavbarComponent]
+      imports: [NavbarComponent, HttpClientTestingModule],
+      providers: [
+        {
+          provide: ActivatedRoute, // ✅ Simulation de ActivatedRoute
+          useValue: {
+            paramMap: of({ get: (key: string) => '123' }) // Simule un paramètre d'URL "123"
+          }
+        }
+      ]
     })
     .compileComponents();
 

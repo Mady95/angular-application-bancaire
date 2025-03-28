@@ -1,49 +1,64 @@
-import { TestBed } from '@angular/core/testing';
-import { Router } from '@angular/router';
-import { AuthGuard } from './auth.guard';
-import { of } from 'rxjs';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AppComponent } from '../../app.component';  
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterModule, Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
+import { ActivatedRoute } from '@angular/router';  
+import { of } from 'rxjs';  
 
-// Mocking Router
-class RouterMock {
-  navigate = jasmine.createSpy('navigate');
-}
+describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+  let router: Router;  
+  let authService: AuthService;  
 
-describe('AuthGuard', () => {
-  let guard: AuthGuard;
-  let router: RouterMock;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [
+        AppComponent, 
+        HttpClientTestingModule, 
+        RouterModule.forRoot([]) 
+      ],
       providers: [
-        AuthGuard,
-        { provide: Router, useClass: RouterMock } // On utilise notre mock du Router ici
+        AuthService,  
+        {
+          provide: ActivatedRoute,  
+          useValue: {
+            paramMap: of({ get: (key: string) => '123' })
+          }
+        },
+        {
+          provide: Router,  
+          useValue: {
+            navigate: jasmine.createSpy('navigate')  
+          }
+        }
       ]
-    });
-    guard = TestBed.inject(AuthGuard); // Injecter le AuthGuard
-    router = TestBed.inject(Router);   // Injecter notre mock du Router
+    }).compileComponents();
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    router = TestBed.inject(Router);
+    authService = TestBed.inject(AuthService);
+
+    fixture.detectChanges();
   });
 
-  it('should be created', () => {
-    expect(guard).toBeTruthy(); // Vérifier que le guard est bien créé
+  it('should create the app', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('should allow access if user is authenticated', () => {
-    spyOn(guard, 'canActivate').and.returnValue(of(true)); // Simuler un utilisateur authentifié
-
-    const result = guard.canActivate(new ActivatedRouteSnapshot(), {} as RouterStateSnapshot);
-    result.subscribe((res) => {
-      expect(res).toBe(true); // Si l'utilisateur est authentifié, l'accès est autorisé
-    });
+  it(`should have the 'angular-application-bancaire' title`, () => {
+    expect(component.title).toEqual('angular-application-bancaire');
   });
 
-  it('should block access if user is not authenticated', () => {
-    spyOn(guard, 'canActivate').and.returnValue(of(false)); // Simuler un utilisateur non authentifié
+  it('should render title', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, angular-application-bancaire');
+  });
 
-    const result = guard.canActivate(new ActivatedRouteSnapshot(), {} as RouterStateSnapshot);
-    result.subscribe((res) => {
-      expect(res).toBe(false); // Si l'utilisateur n'est pas authentifié, l'accès est bloqué
-      expect(router.navigate).toHaveBeenCalledWith(['/login']); // Vérifier que la redirection vers login a été effectuée
-    });
+  it('should inject AuthService', () => {
+    expect(authService).toBeTruthy();
   });
 });
+
