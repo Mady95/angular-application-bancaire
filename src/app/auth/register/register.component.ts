@@ -79,7 +79,7 @@ export class RegisterComponent {
         } else {
           this.registrationCode = 'Inscription réussie, mais aucun code d\'inscription fourni.';
         }
-  
+        localStorage.setItem("jwt", response.jwt); // Stocker le token dans le localStorage
         // Redirection vers la page profile avec le code d'inscription
         this.router.navigate(['/profile'], { state: { clientCode: response.clientCode, name: this.name } });
       },

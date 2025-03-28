@@ -46,8 +46,18 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    // Logique de déconnexion (ex: remove token)
+    localStorage.removeItem("jwt")
+    localStorage.removeItem("selectedAccount")
     this.router.navigate(['/login']);
+    this.authService.getCurrentUser().subscribe({
+      next: (user) => {
+        this.initials = this.getInitials(user.name);
+        this.isLoggedIn = true;
+      },
+      error: () => {
+        this.isLoggedIn = false;
+      }
+    });
   }
 
   @HostListener('document:click', ['$event'])

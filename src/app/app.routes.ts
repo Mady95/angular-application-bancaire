@@ -11,7 +11,7 @@ import { AccountDetailsComponent } from './features/account-details/account-deta
 import { AuthGuard } from './auth/guards/auth.guard'; // Garder le AuthGuard pour les pages protégées
 
 export const routes: Routes = [
-  { path: '', component: LoginComponent },  // Page login
+  { path: '', component: HomeComponent },  // Page login
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },  // Page protégée par AuthGuard
   { path: 'account/:id', component: AccountDetailsComponent, canActivate: [AuthGuard] },
   { path: 'create-account', component: CreateAccountComponent }, // Pas de AuthGuard ici
