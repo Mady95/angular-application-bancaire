@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service'; // Assure-toi d'importer le AuthService
 import { DetailsTransactionComponent } from "./details-transaction/details-transaction.component";
 import { TransactionComponent } from "./transaction/transaction.component";
 import { NavbarComponent } from "./navbar/navbar.component";
@@ -13,6 +15,14 @@ import {FooterComponent} from './components/footer/footer.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'angular-application-bancaire';
+
+  constructor(private router: Router, private authService: AuthService) {}
+
+  ngOnInit() {
+    
+  }
+  
+  
 }

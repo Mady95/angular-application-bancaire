@@ -1,16 +1,19 @@
-import { TestBed } from '@angular/core/testing';
+import { Injectable } from '@angular/core';
 
-import { AuthService } from './auth.service';
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
 
-describe('AuthService', () => {
-  let service: AuthService;
+  constructor() {}
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(AuthService);
-  });
+  // Vérifier si l'utilisateur est connecté en fonction de la présence du token
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('jwt');  // Vérifie la présence du token
+  }
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+  // Méthode de déconnexion
+  logout(): void {
+    localStorage.removeItem('jwt');  // Supprime le token du localStorage
+  }
+}

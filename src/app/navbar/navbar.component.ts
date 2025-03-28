@@ -8,7 +8,7 @@ import {AuthService} from '../services/auth.service';
   standalone : true,
   imports: [CommonModule, RouterLink],
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.scss'
+  styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
 
@@ -65,4 +65,3 @@ export class NavbarComponent implements OnInit {
   }
 
 }
-
