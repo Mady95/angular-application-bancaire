@@ -62,6 +62,7 @@ export class DetailsTransactionComponent implements OnInit {
   }
 
   getInitials(fullName: string): string {
+    if (!fullName) return '';
     return fullName
       .split(' ')
       .map(word => word[0])
