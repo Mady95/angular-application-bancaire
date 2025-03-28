@@ -25,10 +25,7 @@ export class HomeComponent implements OnInit {
     private transactionSyncService: TransactionSyncService
   ) {}
 
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
   ngOnInit(): void {
     const savedAccountId = localStorage.getItem('selectedAccountId');
 
@@ -58,10 +55,7 @@ export class HomeComponent implements OnInit {
       });
     });
   }
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 
   handleAccountChange(event: Event): void {
     const selectedId = (event.target as HTMLSelectElement).value;
